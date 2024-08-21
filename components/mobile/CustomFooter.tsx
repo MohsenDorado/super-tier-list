@@ -51,9 +51,8 @@ const CustomFooter = () => {
               <motion.li key={link.label} className="flex items-center justify-center transition-all duration-500  w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] ">
 
                 <MotionLink
-                  className={
-                    `font-medium relative w-full  h-full   ease-out flex items-center justify-center flex-col ${link.active?"text-[15px] transition-all duration-100":"text-[12px] transition-all duration-100"}`
-                  }
+                  className=" font-medium relative w-full  h-full text-[12px]  ease-out flex items-center justify-center flex-col"
+                  
                   href={link.href}
                 >
                   {link.active?(
@@ -71,9 +70,9 @@ const CustomFooter = () => {
                   </motion.span>
                   {pathname === link.href ? (
                     <motion.div
-                      transition={{ type: "spring" }}
+                      // transition={{ type: "spring" }}
                       layoutId="underline"
-                      className="absolute z-0 w-full h-full  left-0 bottom-0 bg-slate-200 dark:bg-[#172542]"
+                      className="absolute flex items-center justify-center z-0 w-full h-full  left-0 bottom-0 bg-slate-200 dark:bg-[#172542] "
                     ></motion.div>
                   ) : null}
                 </MotionLink>
