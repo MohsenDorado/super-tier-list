@@ -26,6 +26,7 @@ const CustomFooter = () => {
     <div
       className="
       lg:hidden
+      transition-all duration-100
 
         fixed 
         justify-between 
@@ -42,17 +43,17 @@ const CustomFooter = () => {
         lrg:hidden
       "
     >
-         <nav className=" flex justify-center w-full ">
-         <ul className="flex w-full  ">
+         <nav className=" flex justify-center w-full h-full transition-all duration-100 ">
+         <ul className="flex w-full h-full transition-all duration-100  ">
                       <AnimatePresence>
           {links.map((link) => {
             return (
-              <motion.li key={link.label} className="flex items-center justify-center  w-[33%] flex-col ">
+              <motion.li key={link.label} className="flex items-center justify-center transition-all duration-500  w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] ">
 
                 <MotionLink
-                  className={cn(
-                    " font-medium relative w-full  rounded-xl text-[12px] py-2  transition-all duration-500 ease-out flex items-center justify-center flex-col"
-                  )}
+                  className={
+                    `font-medium relative w-full  h-full   ease-out flex items-center justify-center flex-col ${link.active?"text-[15px] transition-all duration-100":"text-[12px] transition-all duration-100"}`
+                  }
                   href={link.href}
                 >
                   {link.active?(
@@ -72,7 +73,7 @@ const CustomFooter = () => {
                     <motion.div
                       transition={{ type: "spring" }}
                       layoutId="underline"
-                      className="absolute z-0 w-[97%] h-full rounded-md left-0 bottom-0 bg-slate-200 dark:bg-[#172542]"
+                      className="absolute z-0 w-full h-full  left-0 bottom-0 bg-slate-200 dark:bg-[#172542]"
                     ></motion.div>
                   ) : null}
                 </MotionLink>
