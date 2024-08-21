@@ -70,7 +70,7 @@ const CustomFooter = () => {
                   </motion.span>
                   {pathname === link.href ? (
                     <motion.div
-                      // transition={{ type: "spring" }}
+                      transition={{ type: "spring" }}
                       layoutId="underline"
                       className="absolute flex items-center justify-center z-0 w-full h-full  left-0 bottom-0 bg-slate-200 dark:bg-[#172542] "
                     ></motion.div>
