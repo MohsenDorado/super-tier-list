@@ -51,17 +51,17 @@ const CustomFooter = () => {
               <motion.li key={link.label} className="flex items-center justify-center   w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] ">
 
                 <MotionLink
-                  className=" font-medium relative w-full  h-full text-[12px]  ease-out flex items-center justify-center flex-col"
+                  className=" font-medium relative w-full  h-full text-[10px]  ease-out flex items-center justify-center flex-col"
                   
                   href={link.href}
                 >
                   {link.active?(
-                    <link.activeIcon className="w-8 h-8 z-10"/>
+                    <link.activeIcon className="w-6 h-6 z-10 "/>
 
                   )
                 :
                 (
-                  <link.icon className="w-8 h-8 z-10"/>
+                  <link.icon className="w-6 h-6 z-10 "/>
 
                 )
                 }

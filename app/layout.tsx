@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import MobileFooter from "../components/mobile/MobileFooter";
 import { ThemeProvider } from "../components/theme-provider";
 import Header from "@/components/header/Header";
 import CustomFooter from "@/components/mobile/CustomFooter";
@@ -19,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="transition-all duration-1000">
+    <html lang="en" className="">
       <body className={inter.className}>
 
         <ThemeProvider

@@ -12,7 +12,7 @@ export default function Header() {
   const MotionLink = motion(Link);
 
   return (
-    <nav className="p-8 flex justify-center">
+    <nav className="p-8 flex justify-center w-full">
         <ThemeToggle/>
       <ul className="flex gap-10 lg:gap-28 md:gap-16">
           {links.map((link) => {
