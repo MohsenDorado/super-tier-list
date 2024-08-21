@@ -61,16 +61,16 @@ const MobileFooter = () => {
           )}
         >
           {route.active ? (
-            <route.icon className="w-7 h-7 text-black dark:bg-black transition-all duration-100 stroke-2" />
+            <route.icon className="w-7 h-7 text-black dark:bg-black  stroke-2" />
           ) : (
-            <route.icon className="w-6 h-6 transition-all duration-100" />
+            <route.icon className="w-6 h-6 " />
           )}
 
           <p
             className={clsx(
               `text-sm  pb-1`,
               route.active &&
-                " text-md text-black font-extrabold transition-all duration-100"
+                " text-md text-black font-extrabold "
             )}
           >
             {route.label}

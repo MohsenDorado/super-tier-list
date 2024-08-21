@@ -26,7 +26,7 @@ const CustomFooter = () => {
     <div
       className="
       lg:hidden
-      transition-all duration-100
+      
 
         fixed 
         justify-between 
@@ -43,12 +43,12 @@ const CustomFooter = () => {
         lrg:hidden
       "
     >
-         <nav className=" flex justify-center w-full h-full transition-all duration-100 ">
-         <ul className="flex w-full h-full transition-all duration-100  ">
+         <nav className=" flex justify-center w-full h-full  ">
+         <ul className="flex w-full h-full   ">
                       <AnimatePresence>
           {links.map((link) => {
             return (
-              <motion.li key={link.label} className="flex items-center justify-center transition-all duration-500  w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] ">
+              <motion.li key={link.label} className="flex items-center justify-center   w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] ">
 
                 <MotionLink
                   className=" font-medium relative w-full  h-full text-[12px]  ease-out flex items-center justify-center flex-col"
