@@ -1,38 +1,35 @@
 "use client";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import useRoutes from "@/app/hooks/useRoutes";
 import ThemeToggle from "./ThemeToggle";
+import { IoIosSearch } from "react-icons/io";
+import { useState } from "react";
+import { Menu } from "./Menu";
 
 export default function Header() {
-  const links = useRoutes();
-  const pathname = usePathname();
-  const MotionLink = motion(Link);
-
+  const [openSearch, setOpenSearch] = useState<boolean>(false);
+  const routes = useRoutes();
   return (
-    <nav className="p-8 flex justify-center w-full">
-        <ThemeToggle/>
-      <ul className="flex gap-10 lg:gap-28 md:gap-16">
-          {links.map((link) => {
-            return (
-              <li key={link.label}>
-                <Link
-                  className={cn(
-                    "font-medium relative rounded-xl text-sm py-2 px-4 ease-out"
-                  )}
-                  href={link.href}
-                >
-                  <span className="font-bold z-10 relative">
-                    {link.label}
-                  </span>
-                  
-                </Link>
-              </li>
-            );
-          })}
-      </ul>
-    </nav>
+    <header className="px-[50px] max-sm:px-2 fixed h-[40px] top-0 left-0 w-full bg-white bg-opacity-[0.0001] backdrop-blur-md shadow-lg z-50 flex items-center justify-between">
+      <h1 className="">Site Name</h1>
+      <button>
+        <IoIosSearch className="w-6 h-6" />
+      </button>
+      <div className="flex items-center justify-center">
+
+      <ThemeToggle/>
+      <nav className="flex items-center justify-center">
+        <ul className="flex items-center justify-center gap-5 text-xs max-sm:hidden">
+          {routes.map((route) => (
+            <li key={route.href}>{route.label}</li>
+          ))}
+          
+         
+        
+        </ul>
+          <Menu />
+      </nav>
+      </div>
+    </header>
   );
 }

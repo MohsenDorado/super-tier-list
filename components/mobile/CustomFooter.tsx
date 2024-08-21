@@ -17,20 +17,18 @@ import useRoutes from "@/app/hooks/useRoutes";
 import { cn } from "@/lib/utils";
 
 const CustomFooter = () => {
-    const pathname = usePathname();
-    const MotionLink = motion(Link);
-    const links = useRoutes();
+  const pathname = usePathname();
+  const MotionLink = motion(Link);
+  const links = useRoutes();
 
   const routes = useRoutes();
   return (
-    <div
-      className="
-      lg:hidden
+    <nav
+      className="    lg:hidden
       
 
         fixed 
         justify-between 
-        caveat-light
         w-full 
         h-[60px]
         bottom-0 
@@ -39,32 +37,27 @@ const CustomFooter = () => {
         items-center 
         bg-white 
         dark:bg-black
-        border-t-[1px] 
-        lrg:hidden
-      "
+        shadow-md
+     
+        "
     >
-         <nav className=" flex justify-center w-full h-full  ">
-         <ul className="flex w-full h-full   ">
-                      <AnimatePresence>
+      <ul className="flex w-full h-full   ">
+        <AnimatePresence>
           {links.map((link) => {
             return (
-              <motion.li key={link.label} className="flex items-center justify-center   w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] ">
-
+              <motion.li
+                key={link.label}
+                className="flex items-center justify-center   w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] "
+              >
                 <MotionLink
                   className=" font-medium relative w-full  h-full text-[10px]  ease-out flex items-center justify-center flex-col"
-                  
                   href={link.href}
                 >
-                  {link.active?(
-                    <link.activeIcon className="w-6 h-6 z-10 "/>
-
-                  )
-                :
-                (
-                  <link.icon className="w-6 h-6 z-10 "/>
-
-                )
-                }
+                  {link.active ? (
+                    <link.activeIcon className="w-6 h-6 z-10 " />
+                  ) : (
+                    <link.icon className="w-6 h-6 z-10 " />
+                  )}
                   <motion.span className="font-bold z-10 relative ">
                     {link.label}
                   </motion.span>
@@ -80,10 +73,8 @@ const CustomFooter = () => {
             );
           })}
         </AnimatePresence>
-        </ul>
-        </nav>
-
-    </div>
+      </ul>
+    </nav>
   );
 };
 

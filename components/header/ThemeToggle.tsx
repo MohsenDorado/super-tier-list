@@ -20,13 +20,13 @@ function ThemeToggle() {
   return (
     <Button
       onClick={handleClick}
-      className="relative flex items-center justify-center rounded-full border-2 dark:border-white border-black "
+      className="relative flex items-center justify-center rounded-full border-2 dark:border-white border-black w-8 h-8 "
       variant="outline"
       size="icon"
     >
       {/* Sun Icon */}
       <SunIcon
-        className={`h-[1.2rem] w-[1.2rem] transition-all duration-200 transform ${
+        className={`h-[1rem] w-[1rem] transition-all duration-200 transform ${
           resolvedTheme === "dark"
             ? "rotate-90 scale-0 opacity-0"
             : "rotate-0 scale-100 opacity-100"
@@ -34,7 +34,7 @@ function ThemeToggle() {
       />
       {/* Moon Icon */}
       <MoonIcon
-        className={`h-[1.2rem] w-[1.2rem] absolute transition-all duration-200 transform ${
+        className={`h-[1rem] w-[1rem] absolute transition-all duration-200 transform ${
           resolvedTheme === "dark"
             ? "rotate-0 scale-100 opacity-100"
             : "rotate-90 scale-0 opacity-0"
