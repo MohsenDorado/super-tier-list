@@ -2,7 +2,7 @@ import React from 'react'
 
 const ListPage = () => {
   return (
-    <div>ListPage</div>
+    <div className='h-[200vh]'>ListPage</div>
   )
 }
 

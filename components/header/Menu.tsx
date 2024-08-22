@@ -1,27 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { MotionConfig, motion } from "framer-motion";
 
-// export const Menu = () => {
-//   return (
-//     <div className="grid h-screen place-content-center bg-gradient-to-br from-violet-500 to-indigo-500">
-//       <AnimatedHamburgerButton />
-//     </div>
-//   );
-// };
-
 export const Menu = ({isActive}:{isActive?:boolean}) => {
 
-    // useEffect(() => {
-    // if (isActive!==) {
-    // isActive===true&&setActive(true)
-    // isActive===false&&setActive(false)
-
-
-        
-    // }
-      
-    // }, [isActive])
-    
+ 
   const [active, setActive] = useState(false);
   return (
     <MotionConfig
@@ -34,7 +16,7 @@ export const Menu = ({isActive}:{isActive?:boolean}) => {
         initial={false}
         animate={active ? "open" : "closed"}
         onClick={() => setActive((pv) => !pv)}
-        className="relative h-20 w-20 rounded-full bg-transparent transition-colors lg:hidden "
+        className="relative h-16 w-12 rounded-full bg-transparent transition-colors lg:hidden "
       >
         <motion.span
           variants={VARIANTS.top}
