@@ -2,10 +2,9 @@ import React from 'react'
 
 const loading = () => {
   return (
-    <div className='w-full flex items-center justify-center h-[300px] bg-purple-50'>
-      <h1 className='w-full text-xl font-Yekan text-black font-extrabold text-center '>
-        درحال پزدازش...
-      </h1>
+    <div className='w-full flex items-center justify-center h-[300px]'>
+      <div className='loader '>
+      </div>
       </div>
   )
 }

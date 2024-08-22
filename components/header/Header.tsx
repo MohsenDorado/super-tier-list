@@ -11,32 +11,29 @@ import { AnimatePresence, motion } from "framer-motion";
 export default function Header() {
   const pathname = usePathname();
 
-  const [openSearch, setOpenSearch] = useState<boolean>(false);
   const routes = useRoutes();
   const router = useRouter();
   return (
-    <header className="font-Yekan px-[50px] max-sm:px-2 fixed h-[40px] top-0 left-0 w-full bg-white bg-opacity-[0.0001] backdrop-blur-md shadow-lg flex items-center justify-between lg:justify-center">
+    <header className="font-Yekan px-[50px] lg:px-[17%] lg:justify-between max-sm:px-2 fixed h-[60px] top-0 left-0 w-full dark:bg-black bg-white  backdrop-blur-md  flex items-center justify-between ">
       <h1
-        className="cursor-pointer"
+        className="cursor-pointer text-3xl"
         onClick={() => {
           router.push("/");
         }}
       >
-        صفحه اصلی
+        Logo
       </h1>
-      <div className="flex items-center justify-center gap-1">
-        {/* <button>
-          <IoIosSearch className="w-6 h-6" />
-        </button> */}
+      <div className="flex items-center justify-center gap-10">
+      
 
         <ThemeToggle />
         <nav className="flex items-center justify-center ">
-          <ul className="flex items-center justify-center gap-5 text-xs max-lg:hidden ">
+          <ul className="flex items-center justify-center gap-5  max-lg:hidden ">
             <AnimatePresence>
               {routes.map((route) => (
                 <li key={route.href}>
                   <Link className=" relative" href={route.href}>
-                  <span className="z-10 relative ">
+                  <span className="z-10 relative p-2 ">
 
                     {route.label !== "Home" && route.label}
                   </span>

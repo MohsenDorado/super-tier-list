@@ -14,9 +14,12 @@ import Link from "next/link";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import useRoutes from "@/app/hooks/useRoutes";
-import { cn } from "@/lib/utils";
 
 const CustomFooter = () => {
+  const spring = {
+    type: "ease",
+    stiffness: 100
+  }
   const pathname = usePathname();
   const MotionLink = motion(Link);
   const links = useRoutes();
@@ -63,7 +66,7 @@ const CustomFooter = () => {
                   </span>
                   {pathname === link.href ? (
                     <motion.div
-                      transition={{ type: "spring" }}
+                      transition={spring}
                       layoutId="underline"
                       className="absolute flex items-center justify-center z-0 w-full h-full  left-0 bottom-0 bg-slate-200 dark:bg-[#172542] "
                     ></motion.div>

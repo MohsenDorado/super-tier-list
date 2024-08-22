@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="mt-[40px]">
+    <html lang="en" className="">
       <body className={inter.className}>
 
         <ThemeProvider
