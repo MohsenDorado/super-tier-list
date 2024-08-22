@@ -1,13 +1,13 @@
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import {
-  IoCheckbox,
-  IoCheckboxOutline,
+  IoCall,
+  IoCallOutline,
   IoHome,
   IoHomeOutline,
+  IoListCircle,
+  IoListCircleOutline,
 } from "react-icons/io5";
-import { PiUserCircleLight } from "react-icons/pi";
 
 const useRoutes = () => {
   const pathname = usePathname();
@@ -15,14 +15,14 @@ const useRoutes = () => {
   const routes = useMemo(
     () => [
       {
-        label: "Profile",
-        href: "/profile",
-        icon: PiUserCircleLight,
-        activeIcon: FaUserCircle,
-        active: pathname.includes("/profile"),
+        label: "ارتباط",
+        href: "/contact",
+        icon: IoCallOutline ,
+        activeIcon: IoCall ,
+        active: pathname.includes("/contact"),
       },
       {
-        label: "Home",
+        label: "صفحه اصلی",
         href: "/",
         icon: IoHomeOutline,
         activeIcon: IoHome,
@@ -30,12 +30,12 @@ const useRoutes = () => {
         active: pathname === "/",
       },
       {
-        label: "My Todos",
-        href: "/my-todos",
-        icon: IoCheckboxOutline,
-        activeIcon: IoCheckbox,
+        label: "لیست",
+        href: "/list",
+        icon: IoListCircleOutline ,
+        activeIcon: IoListCircle ,
 
-        active: pathname.includes("/my-todos"),
+        active: pathname.includes("/list"),
       },
     ],
     [pathname]

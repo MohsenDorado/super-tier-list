@@ -12,6 +12,9 @@ const config = {
   theme: {
   
     extend: {
+      fontFamily: {
+        Yekan:'Yekan'
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

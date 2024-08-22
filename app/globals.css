@@ -10,7 +10,7 @@
   --bar-height:8px;
   --bar-width:60px;
 }
-.rotate-it-down{
+/* .rotate-it-down{
   rotate: 45deg;
   width: var(--x-width);
   translate: 0 calc(var(--bar-height)/-2);
@@ -21,4 +21,11 @@
   rotate: -45deg;
   width: var(--x-width);
   translate: 0 calc(var(--bar-height)/2);
+} */
+@font-face {
+  font-family:Yekan;
+  src: url('../fonts/Yekan.woff')format('woff');
+  font-style: normal;
+  font-weight: normal;
+  
 }

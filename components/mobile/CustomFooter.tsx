@@ -45,11 +45,11 @@ const CustomFooter = () => {
         <AnimatePresence>
           {links.map((link) => {
             return (
-              <motion.li
+              <li
                 key={link.label}
-                className="flex items-center justify-center   w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] "
+                className="font-Yekan flex items-center justify-center   w-[33.33333%] flex-col h-full hover:bg-slate-50 dark:hover:bg-[#0c1527f6] "
               >
-                <MotionLink
+                <Link
                   className=" font-medium relative w-full  h-full text-[10px]  ease-out flex items-center justify-center flex-col"
                   href={link.href}
                 >
@@ -58,9 +58,9 @@ const CustomFooter = () => {
                   ) : (
                     <link.icon className="w-6 h-6 z-10 " />
                   )}
-                  <motion.span className="font-bold z-10 relative ">
+                  <span className=" z-10 relative ">
                     {link.label}
-                  </motion.span>
+                  </span>
                   {pathname === link.href ? (
                     <motion.div
                       transition={{ type: "spring" }}
@@ -68,8 +68,8 @@ const CustomFooter = () => {
                       className="absolute flex items-center justify-center z-0 w-full h-full  left-0 bottom-0 bg-slate-200 dark:bg-[#172542] "
                     ></motion.div>
                   ) : null}
-                </MotionLink>
-              </motion.li>
+                </Link>
+              </li>
             );
           })}
         </AnimatePresence>
