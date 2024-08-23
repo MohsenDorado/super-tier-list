@@ -4,7 +4,7 @@ import { ExpandableCardDemo } from '../ExpandableCardDemo'
 
 const Features = () => {
   return (
-    <div className='z-[5] w-full bg-black relative font-Yekan'>
+    <div className='z-[5] w-full bg-slate-100 dark:bg-black relative font-Yekan'>
       <ExpandableCardDemo/>
 
     </div>

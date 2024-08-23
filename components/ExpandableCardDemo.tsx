@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/app/hooks/use-outside-click";
-
+import TImage from "@/public/istockphoto-2007341652-612x612.webp"
 export function ExpandableCardDemo() {
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
     null
@@ -68,14 +68,14 @@ export function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-[#172542] sm:rounded-3xl overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <Image
                   priority
                   width={200}
                   height={200}
-                  src={``}
+                  src={TImage}
                   alt={active.title}
                   className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
                 />
@@ -138,7 +138,7 @@ export function ExpandableCardDemo() {
                 <Image
                   width={100}
                   height={100}
-                  src={``}
+                  src={TImage}
                   alt={card.title}
                   className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
                 />
@@ -208,7 +208,7 @@ const cards = [
   {
     description: "Lana Del Rey",
     title: "Summertime Sadness",
-    src: "",
+    src: TImage,
     ctaText: "Play",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
@@ -231,7 +231,7 @@ const cards = [
   {
     description: "Babbu Maan",
     title: "Mitran Di Chhatri",
-    src: "",
+    src: TImage,
     ctaText: "Play",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
@@ -254,7 +254,7 @@ const cards = [
   {
     description: "Metallica",
     title: "For Whom The Bell Tolls",
-    src: "",
+    src: TImage,
     ctaText: "Play",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
@@ -276,7 +276,7 @@ const cards = [
   {
     description: "Led Zeppelin",
     title: "Stairway To Heaven",
-    src: "",
+    src: TImage,
     ctaText: "Play",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
@@ -297,7 +297,7 @@ const cards = [
   {
     description: "Mustafa Zahid",
     title: "Toh Phir Aao",
-    src: "",
+    src: TImage,
     ctaText: "Play",
     ctaLink: "https://ui.aceternity.com/templates",
     content: () => {
