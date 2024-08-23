@@ -14,7 +14,7 @@ export default function Header() {
   const routes = useRoutes();
   const router = useRouter();
   return (
-    <header className="font-Yekan px-[50px] lg:px-[17%] lg:justify-between max-sm:px-2 fixed h-[60px] top-0 left-0 w-full dark:bg-black bg-white  backdrop-blur-md  flex items-center justify-between ">
+    <header className="font-Yekan px-[50px] z-50 lg:px-[17%] lg:justify-between max-sm:px-2 fixed h-[60px] top-0 left-0 w-full dark:bg-black bg-white  backdrop-blur-md  flex items-center justify-between ">
       <h1
         className="cursor-pointer text-3xl"
         onClick={() => {
