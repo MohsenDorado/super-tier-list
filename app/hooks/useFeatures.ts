@@ -1,16 +1,16 @@
-import { useMemo } from "react";
+// import { useMemo } from "react";
 
-type FeaturesType = {
-  image: string;
-  title: string;
-  color: ColorGamut;
-  description: string;
-  link: string;
-};
+// type FeaturesType = {
+//   image: string;
+//   title: string;
+//   color: ColorGamut;
+//   description: string;
+//   link: string;
+// };
 
-const features = useMemo<FeaturesType[]>(
-  () => [
+// const features = useMemo<FeaturesType[]>(
+//   () => [
    
-  ],
-  []
-);
+//   ],
+//   []
+// );
