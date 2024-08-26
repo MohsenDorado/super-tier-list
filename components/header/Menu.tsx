@@ -22,7 +22,7 @@ export const Menu = ({isActive}:{isActive?:boolean}) => {
         initial={false}
         animate={active ? "open" : "closed"}
         onClick={() => setActive((pv) => !pv)}
-        className="relative h-16 w-16  rounded-full bg-transparent transition-colors lg:hidden "
+        className="relative h-16 w-16    bg-transparent transition-colors lg:hidden "
       >
         <motion.span
           variants={VARIANTS.top}

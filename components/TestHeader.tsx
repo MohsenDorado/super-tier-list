@@ -5,27 +5,53 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useRoutes from "@/app/hooks/useRoutes";
 import { IoIosArrowDown, IoIosClose, IoIosMenu } from "react-icons/io";
-import { Menu } from "./header/Menu";
+import ThemeToggle from "./header/ThemeToggle";
+
 
 export default function TestHeader() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const routes = useRoutes();
+    const routes = useRoutes();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg font-Yekan">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-black shadow-lg font-Yekan">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div className="text-xl font-bold">MyWebsite</div>
-        <div className="md:hidden">
-          <div
+        <div className="md:hidden flex gap-10">
+        <ThemeToggle/>
+          <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-gray-700 focus:outline-none"
           >
-            <Menu isActive={isMobileMenuOpen} />
-          </div>
+            <motion.div
+              initial={{ rotate: 0 }}
+              animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-6 h-6 dark:text-white"
+                key={isMobileMenuOpen ? "x-icon" : "menu-icon"}
+              >
+                {isMobileMenuOpen ? (
+                  <path d="M18 6L6 18M6 6l12 12" /> // X icon
+                ) : (
+                  <path d="M3 12h18M3 6h18M3 18h18" /> // Hamburger icon
+                )}
+              </motion.svg>
+            </motion.div>
+          </button>
         </div>
         <ul className="hidden md:flex space-x-8">
+        <ThemeToggle/>
+
           {routes.map((item) => (
             <li
               key={item.label}
@@ -35,7 +61,7 @@ export default function TestHeader() {
             >
               <a
                 href={item.href}
-                className="text-gray-700 hover:text-blue-500 flex items-center justify-center"
+                className="text-gray-700 dark:text-white hover:text-blue-500 flex items-center justify-center"
               >
                 {item.children && <IoIosArrowDown />}
                 {item.label}
@@ -48,13 +74,13 @@ export default function TestHeader() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md"
+                      className="absolute right-0 mt-2 w-48 bg-white dark:bg-black shadow-md rounded-md"
                     >
                       {item.children.map((child) => (
                         <li key={child.label}>
                           <a
                             href={child.href}
-                            className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-500"
+                            className="block px-4 py-2 text-gray-700 dark:text-white hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-500"
                           >
                             {child.label}
                           </a>
@@ -71,33 +97,35 @@ export default function TestHeader() {
 
       {/* Mobile Menu */}
       <AnimatePresence>
+        
         {isMobileMenuOpen && (
           <motion.div
             initial={{ height: 0 }}
             animate={{ height: "auto" }}
             exit={{ height: 0 }}
-            className="md:hidden bg-white shadow-lg overflow-hidden"
+            className="md:hidden bg-white dark:bg-black shadow-lg overflow-hidden"
           >
             <ul className="space-y-2 py-4 px-6">
+                
               {routes.map((item) => (
                 <li key={item.label}>
-                  <div
+                  <div 
                     onClick={() =>
-                      setHoveredItem(
-                        hoveredItem === item.label ? null : item.label
-                      )
-                    }
-                    className="flex justify-between items-center"
-                  >
+                        setHoveredItem(
+                          hoveredItem === item.label ? null : item.label
+                        )
+                      }
+                  
+                  className="flex justify-between items-center">
                     <a
                       href={item.href}
-                      className="block text-gray-700 hover:text-blue-500"
+                      className="block text-gray-700 dark:text-white hover:text-blue-500"
                     >
                       {item.label}
                     </a>
                     {item.children && (
                       <IoIosArrowDown
-                        className="text-gray-700 w-[10%]"
+                        className="text-gray-700 dark:text-white"
                         onClick={() =>
                           setHoveredItem(
                             hoveredItem === item.label ? null : item.label
@@ -118,7 +146,7 @@ export default function TestHeader() {
                         <li key={child.label}>
                           <a
                             href={child.href}
-                            className="block text-gray-700 hover:text-blue-500"
+                            className="block text-gray-700 hover:text-blue-500 text-blue-400"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {child.label}
