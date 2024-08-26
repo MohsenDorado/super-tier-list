@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import Header from "@/components/header/Header";
 import CustomFooter from "@/components/mobile/CustomFooter";
+import TestHeader from "@/components/TestHeader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="light"
           >
-            <Header/>
+            <TestHeader/>
           {children}
         <CustomFooter />
         </ThemeProvider>

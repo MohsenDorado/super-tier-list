@@ -3,15 +3,19 @@ import Link from "next/link";
 import useRoutes from "@/app/hooks/useRoutes";
 import ThemeToggle from "./ThemeToggle";
 import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "./Menu";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import NavChild from "./NavChild";
 
 export default function Header() {
-  const [isVisible, setIsVisible] = useState("");
   const pathname = usePathname();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  const [isVisible, setIsVisible] = useState("");
 
   const routes = useRoutes();
   const router = useRouter();
@@ -43,10 +47,8 @@ export default function Header() {
                       {route.children && <IoIosArrowDown />}
                       {route.label !== "Home" && route.label}
                     </span>
-                    <AnimatePresence>
                               {isVisible===route.href&&<NavChild isVisible={true} key={route.href}/>}
 
-                            </AnimatePresence>
                     {pathname === route.href ? (
                       <motion.div
                         transition={{ type: "spring" }}
