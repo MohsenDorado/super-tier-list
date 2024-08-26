@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { MotionConfig, motion } from "framer-motion";
 
 export const Menu = ({isActive}:{isActive?:boolean}) => {
+  useEffect(() => {
+    isActive!==undefined&&
+    setActive(isActive)
+    
+  }, [isActive])
+  
 
  
   const [active, setActive] = useState(false);
@@ -16,7 +22,7 @@ export const Menu = ({isActive}:{isActive?:boolean}) => {
         initial={false}
         animate={active ? "open" : "closed"}
         onClick={() => setActive((pv) => !pv)}
-        className="relative h-16 w-7 rounded-full bg-transparent transition-colors lg:hidden "
+        className="relative h-16 w-16  rounded-full bg-transparent transition-colors lg:hidden "
       >
         <motion.span
           variants={VARIANTS.top}
