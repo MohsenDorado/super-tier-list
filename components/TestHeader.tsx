@@ -146,7 +146,7 @@ export default function TestHeader() {
                         <li key={child.label}>
                           <a
                             href={child.href}
-                            className="block text-gray-700 hover:text-blue-500 text-blue-400"
+                            className="block dark:text-blue-500 hover:text-blue-500 text-blue-400"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {child.label}

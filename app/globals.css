@@ -43,3 +43,36 @@
     66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #0002}
     100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
 }
+/* globals.css */
+@layer utilities {
+  /* Light mode styles */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #a1a1aa; /* Light mode thumb color */
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #71717a; /* Light mode hover color */
+  }
+
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    ::-webkit-scrollbar-thumb {
+      background-color: #0a0a44; /* Dark mode thumb color */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #0000ff; /* Dark mode hover color */
+    }
+  }
+}
