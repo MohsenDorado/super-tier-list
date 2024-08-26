@@ -8,17 +8,25 @@ import {
   IoListCircle,
   IoListCircleOutline,
 } from "react-icons/io5";
-
+import { IconType } from "react-icons/lib";
+type RoutesType = {
+  label: string;
+  href: string;
+  icon: IconType;
+  activeIcon: IconType;
+  active: boolean;
+  children?: RoutesType[];
+};
 const useRoutes = () => {
   const pathname = usePathname();
 
-  const routes = useMemo(
+  const routes = useMemo<RoutesType[]>(
     () => [
       {
         label: "ارتباط",
         href: "/contact",
-        icon: IoCallOutline ,
-        activeIcon: IoCall ,
+        icon: IoCallOutline,
+        activeIcon: IoCall,
         active: pathname.includes("/contact"),
       },
       {
@@ -28,14 +36,32 @@ const useRoutes = () => {
         activeIcon: IoHome,
 
         active: pathname === "/",
+        children: [
+          {
+            label: "ورود ادمین",
+            href: "/list/admin",
+            icon: IoListCircleOutline,
+            active: pathname === "/list/admin",
+            activeIcon: IoListCircle,
+          },
+        ],
       },
       {
         label: "لیست",
         href: "/list",
-        icon: IoListCircleOutline ,
-        activeIcon: IoListCircle ,
+        icon: IoListCircleOutline,
+        activeIcon: IoListCircle,
 
-        active: pathname.includes("/list"),
+        active: pathname === "/list",
+        children: [
+          {
+            label: "تغییر لیست",
+            href: "/list/admin/change-list",
+            icon: IoCall,
+            active: pathname === "/list/admin/change-list",
+            activeIcon: IoCall,
+          },
+        ],
       },
     ],
     [pathname]

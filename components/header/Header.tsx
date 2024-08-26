@@ -2,13 +2,15 @@
 import Link from "next/link";
 import useRoutes from "@/app/hooks/useRoutes";
 import ThemeToggle from "./ThemeToggle";
-import { IoIosSearch } from "react-icons/io";
+import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { useState } from "react";
 import { Menu } from "./Menu";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import NavChild from "./NavChild";
 
 export default function Header() {
+  const [isVisible, setIsVisible] = useState("");
   const pathname = usePathname();
 
   const routes = useRoutes();
@@ -24,19 +26,27 @@ export default function Header() {
         Logo
       </h1>
       <div className="flex items-center justify-center gap-10">
-      
-
         <ThemeToggle />
         <nav className="flex items-center justify-center ">
           <ul className="flex items-center justify-center gap-5  max-lg:hidden ">
             <AnimatePresence>
               {routes.map((route) => (
-                <li key={route.href}>
-                  <Link className=" relative" href={route.href}>
-                  <span className="z-10 relative p-2 ">
+                <li
+                  onMouseLeave={() => setIsVisible('')}
+                  onMouseEnter={() => setIsVisible(route.href)}
+                  key={route.href}
+                  className="group relative"
+                >
+                  <Link className=" " href={route.href}>
+              
+                    <span className="z-10  p-2 flex items-center justify-center">
+                      {route.children && <IoIosArrowDown />}
+                      {route.label !== "Home" && route.label}
+                    </span>
+                    <AnimatePresence>
+                              {isVisible===route.href&&<NavChild isVisible={true} key={route.href}/>}
 
-                    {route.label !== "Home" && route.label}
-                  </span>
+                            </AnimatePresence>
                     {pathname === route.href ? (
                       <motion.div
                         transition={{ type: "spring" }}
@@ -45,6 +55,21 @@ export default function Header() {
                       ></motion.div>
                     ) : null}
                   </Link>
+                  {/* {route?.children && (
+                    <ul>
+                        {route.children.map((child) => (
+                          <li
+                          key={child.href}
+                          className="hidden group-hover:flex absolute bg-red-50 w-[200px] left-auto right-0 rounded-lg"
+                          >
+                            <AnimatePresence>
+                              {isVisible===child.href}
+
+                            </AnimatePresence>
+                          </li>
+                        ))}
+                    </ul>
+                  )} */}
                 </li>
               ))}
             </AnimatePresence>

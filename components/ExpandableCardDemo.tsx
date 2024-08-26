@@ -44,23 +44,28 @@ export function ExpandableCardDemo() {
       </AnimatePresence>
       <AnimatePresence>
         {active && typeof active === "object" ? (
-          <div className="fixed inset-0  grid place-items-center z-[100] mt-[100px] mb-[100px]">
+          <div className="fixed inset-0  grid place-items-center z-[100] mt-[100px] mb-[100px] ">
             <motion.button
+            
               key={`button-${active.title}-${id}`}
               layout
               initial={{
+                
                 opacity: 0,
+         
               }}
               animate={{
                 opacity: 1,
               }}
+              
               exit={{
                 opacity: 0,
                 transition: {
+                  
                   duration: 0.05,
                 },
               }}
-              className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
+              className="flex absolute top-2 right-2 lg:hidden items-center justify-center text-white hover:bg-red-600 bg-red-500 rounded-full h-8 w-8"
               onClick={() => setActive(null)}
             >
               <CloseIcon />
@@ -68,7 +73,7 @@ export function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-[#172542] sm:rounded-3xl overflow-hidden"
+              className="w-full  max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-[#172542] sm:rounded-3xl overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <Image
@@ -195,7 +200,7 @@ export const CloseIcon = () => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-4 w-4 text-black"
+      className="h-6 w-6 text-white font-extrabold"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M18 6l-12 12" />
