@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import  prisma  from '@/lib/prisma';
+import  client  from '@/lib/prisma';
 
 export async function GET() {
-  const cards = await prisma.card.findMany()
+  const cards = await client.card.findMany()
   return NextResponse.json(cards);
 }
 
@@ -10,7 +10,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const { person, amount } = await request.json();
-  const newCard = await prisma.card.create({
+  const newCard = await client.card.create({
     data: {
       person,amount
     },
