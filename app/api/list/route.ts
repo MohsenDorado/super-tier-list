@@ -1,5 +1,5 @@
+import client from '@/app/lib/prismadb';
 import { NextResponse } from 'next/server';
-import  client  from '@/lib/prisma';
 
 export async function GET() {
   const cards = await client.card.findMany()
