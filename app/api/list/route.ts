@@ -17,3 +17,13 @@ export async function POST(request: Request) {
   });
   return NextResponse.json(newCard);
 }
+
+
+export async function PUT(request: Request, { params }: { params: { id: number } }) {
+  const { person, amount } = await request.json();
+  const updatedPost = await client.card.update({
+    where: { id: params.id },
+    data: { person, amount },
+  });
+  return NextResponse.json(updatedPost);
+}
