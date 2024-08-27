@@ -20,7 +20,7 @@ function ThemeToggle() {
   return (
     <Button
       onClick={handleClick}
-      className="relative flex items-center justify-center rounded-full border-2 dark:border-white border-black w-8 h-8 "
+      className="relative  flex items-center justify-center rounded-full border-2 dark:border-white border-black w-8 h-8 "
       variant="outline"
       size="icon"
     >

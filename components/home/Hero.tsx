@@ -12,7 +12,7 @@ const Hero = () => {
           className="w-full h-full object-cover object-center fixed"
         />
       </div>
-      <div className='bg-black opacity-60 absolute w-full h-full'>
+      <div className='bg-black opacity-30 dark:opacity-60 absolute w-full h-full'>
 
       </div>
       <div className="relative  flex items-center justify-center h-full">

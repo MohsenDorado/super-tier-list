@@ -29,7 +29,7 @@ export default function Header() {
       >
         Logo
       </h1>
-      <div className="flex items-center justify-center gap-10">
+      <div className="flex items-center justify-center gap-4">
         <ThemeToggle />
         <nav className="flex items-center justify-center ">
           <ul className="flex items-center justify-center gap-5  max-lg:hidden ">
@@ -44,15 +44,18 @@ export default function Header() {
                   <Link className=" " href={route.href}>
               
                     <span className="z-10  p-2 flex items-center justify-center">
-                      {route.children && <IoIosArrowDown />}
+                      {/* {route.children && <IoIosArrowDown />} */}
                       {route.label !== "Home" && route.label}
                     </span>
-                              {isVisible===route.href&&<NavChild isVisible={true} key={route.href}/>}
+                              {/* {isVisible===route.href&&<NavChild isVisible={true} key={route.href}/>} */}
 
-                    {pathname === route.href ? (
+                    {isVisible === route.href ? (
                       <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+
                         transition={{ type: "spring" }}
-                        layoutId="underline2"
                         className="absolute flex items-center justify-center z-0 w-full h-[2px]  left-0 bottom-0 dark:bg-white bg-[#172542] "
                       ></motion.div>
                     ) : null}

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import useRoutes from "@/app/hooks/useRoutes";
 import { IoIosArrowDown, IoIosClose, IoIosMenu } from "react-icons/io";
 import ThemeToggle from "./header/ThemeToggle";
+import Link from "next/link";
 
 
 export default function TestHeader() {
@@ -59,31 +60,36 @@ export default function TestHeader() {
               onMouseLeave={() => setHoveredItem(null)}
               className="relative"
             >
-              <a
+              <Link
                 href={item.href}
                 className="text-gray-700 dark:text-white hover:text-blue-500 flex items-center justify-center"
               >
                 {item.children && <IoIosArrowDown />}
                 {item.label}
-              </a>
+              </Link>
               {item.children && (
                 <AnimatePresence>
                   {hoveredItem === item.label && (
                     <motion.ul
-                      transition={{ type: "spring" }}
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       className="absolute right-0 mt-2 w-48 bg-white dark:bg-black shadow-md rounded-md"
                     >
+                      <motion.div
+                       initial={{ opacity: 0, x: -100 }}
+                       animate={{ opacity: 1, x: 0 }}
+                       exit={{ opacity: 0, x: -100 }}
+                        className="absolute flex items-center justify-center z-0 w-full h-[20px]  left-0 bottom-0 dark:bg-white bg-[#172542] "
+                      ></motion.div>
                       {item.children.map((child) => (
                         <li key={child.label}>
-                          <a
+                          <Link
                             href={child.href}
-                            className="block px-4 py-2 text-gray-700 dark:text-white hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-500"
+                            className="right-0  top-0 flex px-4 py-2 rounded-md text-gray-700 dark:text-white hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-500"
                           >
                             {child.label}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </motion.ul>
@@ -117,12 +123,12 @@ export default function TestHeader() {
                       }
                   
                   className="flex justify-between items-center">
-                    <a
+                    <Link
                       href={item.href}
                       className="block text-gray-700 dark:text-white hover:text-blue-500"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                     {item.children && (
                       <IoIosArrowDown
                         className="text-gray-700 dark:text-white"
@@ -144,13 +150,13 @@ export default function TestHeader() {
                     >
                       {item.children.map((child) => (
                         <li key={child.label}>
-                          <a
+                          <Link
                             href={child.href}
                             className="block dark:text-blue-500 hover:text-blue-500 text-blue-400"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {child.label}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </motion.ul>
