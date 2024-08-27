@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const ListPage = () => {
+
   const [posts, setPosts] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const fetchPosts = async () => {
