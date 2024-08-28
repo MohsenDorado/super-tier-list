@@ -80,18 +80,19 @@ function ListCard() {
          items-center justify-center flex-col p-4 m-4 font-vazir w-full"
         >
           {/* //!Top of card */}
+          {/* //!اسم و عکس */}
           <div className="flex items-center justify-end w-full ">
             <div className=" flex items-center justify-center">
               <p className="text-right mx-3">{item.person}</p>
               <div className="relative">
                 <div
                   style={{ backgroundColor: numberToRandomColor(item.id) }}
-                  className={`absolute rounded-full shadow-xl   w-16 h-16`}
+                  className={`absolute rounded-full shadow-xl   w-16 h-16 max-sm:w-10 max-sm:h-10`}
                 ></div>
                 <Image
                   src={Avatar}
                   alt="user-image"
-                  className="rounded-full w-16 h-16 opacity-80 border-2 border-black"
+                  className="rounded-full w-16 h-16 max-sm:w-10 max-sm:h-10 opacity-80 border-2 border-black"
                 />
               </div>
             </div>
@@ -99,30 +100,26 @@ function ListCard() {
           {/* //!بدهی */}
           <div className="flex items-center justify-end w-full">
             <div className="font-vazir  text-xl my-10">
-              <div className="flex items-center justify-center gap-5">
+              <div className="flex items-center justify-center gap-5 max-sm:text-lg">
                 <p>
                   {convertToPersianNumerals(
                     formatNumberString(item.amount.toString())
                   )}
                 </p>
                 <p>: بدهی</p>
-
               </div>
             </div>
           </div>
           {/* //! : تاریخ تشکیل */}
           <div className="flex items-center justify-end w-full">
             <div className="font-vazir  text-xl">
-              <div className="flex items-center justify-center gap-5">
-              <p>{getPersianDate(createFormat(item.createdAt))}</p>
+              <div className="flex items-center justify-center gap-5 max-sm:text-sm">
+                <p>{getPersianDate(createFormat(item.createdAt))}</p>
                 <p>: تاریخ تشکیل</p>
-
               </div>
             </div>
           </div>
-          <div>
-           
-          </div>
+          <div></div>
         </div>
       ))}
     </div>
