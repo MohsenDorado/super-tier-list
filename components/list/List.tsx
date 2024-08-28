@@ -72,18 +72,18 @@ function ListCard() {
     return color;
   }
   return (
-    <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-2 lg:grid-cols-2 gap-4 px-[50px] ">
+    <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-2 lg:grid-cols-2 gap-4 px-[50px] max-sm:px-[25px] dark:text-white ">
       {data?.map((item: any) => (
         <div
           key={item.id}
-          className="rounded-xl shadow-md bg-slate-50 transition-all duration-500 flex
+          className="rounded-xl shadow-md bg-slate-50 dark:bg-slate-800 transition-all duration-500 flex
          items-center justify-center flex-col p-4 my-3 font-vazir w-full"
         >
           {/* //!Top of card */}
           {/* //!اسم و عکس */}
           <div className="flex items-center justify-end w-full ">
             <div className=" flex items-center justify-between w-full">
-              <p className="text-right mx-3 w-[80%] md:text-xl font-bold right-0 translate-x-2  ">{item.person}</p>
+              <p className="text-right mx-3 w-[75%] md:text-xl font-bold right-0 translate-x-2  ">{item.person}</p>
               <div className="relative">
                 <div
                   style={{ backgroundColor: numberToRandomColor(item.id) }}
