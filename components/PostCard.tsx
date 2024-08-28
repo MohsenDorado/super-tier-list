@@ -27,10 +27,10 @@ const PostCard: React.FC<PostCardProps> = ({ title, content, onDelete }) => {
 }
   
   return (
-    <div className="border p-4 rounded-lg shadow-lg ">
+    <div className="border p-4 rounded-lg shadow-lg  ">
       <h2 className="text-xl font-bold font-Yekan">{title}</h2>
       <p className="text-gray-700 mt-2">{formatNumberString(content.toString())}</p>
-      <button onClick={onDelete} className="mt-4 text-red-600">Delete</button>
+
     </div>
   );
 };

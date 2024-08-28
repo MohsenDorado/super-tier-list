@@ -13,7 +13,8 @@ const config = {
   
     extend: {
       fontFamily: {
-        Yekan:'Yekan'
+        Yekan:'Yekan',
+        vazir:'vazir'
       },
     },
   },
