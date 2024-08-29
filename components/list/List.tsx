@@ -110,7 +110,7 @@ function ListCard() {
                 <p></p>
               </div>
             </div>
-       fix    </div>
+          </div>
         </div>
      )) )}
       {data?.map((item: any) => (
