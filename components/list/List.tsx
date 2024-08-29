@@ -80,6 +80,8 @@ function ListCard() {
         
        
         <div
+
+        key={index}
           className="rounded-xl shadow-md bg-slate-50 dark:bg-slate-800 transition-all duration-500 flex
        items-center justify-center flex-col p-4 my-3 font-vazir w-full"
         >
@@ -108,7 +110,7 @@ function ListCard() {
                 <p></p>
               </div>
             </div>
-          </div>
+       fix    </div>
         </div>
      )) )}
       {data?.map((item: any) => (
