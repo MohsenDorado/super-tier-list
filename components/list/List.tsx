@@ -163,39 +163,39 @@ function ListCard() {
           {/* //! : تاریخ  */}
           <div className="flex items-center justify-between w-full">
             {/* //!اتمام مهلت */}
-          <div className="font-vazir  text-xl  w-full flex items-center justify-center ">
-              <div className="flex items-center justify-center flex-col gap-2 max-sm:text-sm">
-                <p className=" w-full text-right text-lg"> : اتمام مهلت</p>
-                <div className="pr-5 flex flex-col gap-2 ">
+          <div className="font-vazir  text-xl  w-full flex items-center justify-center  ">
+              <div className="flex items-center justify-center flex-col gap-2 max-sm:text-sm  w-full">
+                <p className=" w-full  text-center text-lg">اتمام مهلت</p>
+                <div className=" flex flex-col gap-2 text-right  w-full ">
 
-                <div className=" text-lg text-slate-600 w-full text-right items-center justify-end gap-1 flex  ">
+                <div className=" text-lg text-slate-600 w-full text-right items-center justify-start gap-1 flex  ">
+                  <CalendarDays className="right-0 w-6 h-6" /> 
                   <p>
 
                   {getPersianDate(createFormat(item.createdAt),true)}
                   </p>
-                  <CalendarDays className="right-0 w-6 h-6" /> 
                 </div>
-                <div className=" text-lg text-slate-600 w-full text-right items-center justify-end gap-1 flex  ">
+                <div className=" text-lg text-slate-600 w-full text-right items-center justify-start gap-1 flex  ">
+                  <Clock className="right-0 w-6 h-6" /> 
                   <p>
 
                   {getPerdianTime(createFormat(item.createdAt))}
                   </p>
-                  <Clock className="right-0 w-6 h-6" /> 
                 </div>
                 </div>
               </div>
             </div>
             {/* //!خط.............. */}
-            <div className="w-[1px] h-full bg-slate-400 rounded-full">
+            <div className="w-[1px] h-full bg-slate-400 rounded-full mx-6 max-sm:mx-2">
               
             </div>
             {/* //!تاریخ تشکیل */}
             <div className="font-vazir  text-xl  w-full  flex items-center justify-center">
-              <div className="flex items-center justify-center flex-col gap-2 max-sm:text-sm">
-                <p className=" w-full text-right text-lg">: تاریخ تشکیل</p>
-                <div className="pr-5 flex flex-col gap-2">
+              <div className="flex items-center justify-center flex-col gap-2 max-sm:text-sm w-full">
+                <p className=" w-full text-center text-lg">تاریخ تشکیل</p>
+                <div className=" flex flex-col gap-2 w-full text-right">
 
-                <div className=" text-lg text-slate-600 w-full text-right items-center justify-end gap-1 flex  ">
+                <div className=" text-lg text-slate-600 text-right w-full items-center justify-end gap-1 flex   ">
                   <p>
 
                   {getPersianDate(createFormat(item.createdAt),false)}
