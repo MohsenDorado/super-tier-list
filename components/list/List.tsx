@@ -26,9 +26,9 @@ function ListCard() {
     const { jy, jm, jd } = jalaali.toJalaali(gregorianDate);
     const persianDate = `${convertToPersianNumerals(
       jy.toString()
-    )} / ${convertToPersianNumerals(jm.toString())} / ${convertToPersianNumerals(
-      jd.toString()
-    )}`;
+    )} / ${convertToPersianNumerals(
+      jm.toString()
+    )} / ${convertToPersianNumerals(jd.toString())}`;
 
     return persianDate;
   }
@@ -73,6 +73,44 @@ function ListCard() {
   }
   return (
     <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-1 xl:grid-cols-2 gap-4 px-[50px] max-sm:px-[25px] dark:text-white ">
+      {isLoading && (
+         Array.from({ length: 5 }).map((_, index) =>(
+
+         
+        
+       
+        <div
+          className="rounded-xl shadow-md bg-slate-50 dark:bg-slate-800 transition-all duration-500 flex
+       items-center justify-center flex-col p-4 my-3 font-vazir w-full"
+        >
+          <div className=" flex items-center justify-between  w-full">
+            <p className="text-right right-0 mx-3 w-full md:text-xl font-bold h-[50%] animate-pulse rounded-xl bg-slate-50   "></p>
+            <div className="relative w-16 h-16 max-sm:w-10 max-sm:h-10 rounded-full overflow-hidden flex-shrink-0   ">
+              <div
+                className={`absolute w-full h-full animate-pulse bg-slate-200  `}
+              ></div>
+            </div>
+          </div>
+          {/* //!بدهی */}
+          <div className="flex items-center justify-end w-full ">
+            <div className="font-vazir  text-xl my-10  w-full h-full">
+              <div className="flex items-center justify-end gap-5 max-sm:text-lg w-full h-full ">
+                <p className="w-[200px] h-5 bg-slate-50 animate-pulse rounded-xl right-0"></p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+          {/* //! : تاریخ تشکیل */}
+          <div className="flex items-center justify-end w-full ">
+            <div className="font-vazir  text-xl my-10  w-full h-full">
+              <div className="flex items-center justify-end gap-5 max-sm:text-lg w-full h-full ">
+                <p className="w-[200px] h-5 bg-slate-50 animate-pulse rounded-xl right-0"></p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+     )) )}
       {data?.map((item: any) => (
         <div
           key={item.id}
@@ -81,20 +119,18 @@ function ListCard() {
         >
           {/* //!Top of card */}
           {/* //!اسم و عکس */}
-            <div className=" flex items-center justify-between  w-full">
-              <p className="text-right mx-3 w-full md:text-xl font-bold    ">{item.person}</p>
-              <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0   ">
-                <div
-                  style={{ backgroundColor: numberToRandomColor(item.id) }}
-                  className={`absolute w-full h-full  `}
-                ></div>
-                <Image
-                  src={Avatar}
-                  alt="user-image"
-                  className=" opacity-80 "
-                />
-              </div>
+          <div className=" flex items-center justify-between  w-full">
+            <p className="text-right mx-3 w-full md:text-xl font-bold    ">
+              {item.person}
+            </p>
+            <div className="relative w-16 h-16 max-sm:w-10 max-sm:h-10 rounded-full overflow-hidden flex-shrink-0   ">
+              <div
+                style={{ backgroundColor: numberToRandomColor(item.id) }}
+                className={`absolute w-full h-full  `}
+              ></div>
+              <Image src={Avatar} alt="user-image" className=" opacity-80  " />
             </div>
+          </div>
           {/* //!بدهی */}
           <div className="flex items-center justify-end w-full">
             <div className="font-vazir  text-xl my-10">
@@ -117,14 +153,11 @@ function ListCard() {
               </div>
             </div>
           </div>
-          <div></div>
         </div>
       ))}
     </div>
   );
 }
-
-
 
 // <div className="flex items-center justify-end w-full ">
 //             <div className=" flex items-center justify-between  w-full">
