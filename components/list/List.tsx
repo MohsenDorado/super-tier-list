@@ -72,7 +72,7 @@ function ListCard() {
     return color;
   }
   return (
-    <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-2 lg:grid-cols-2 gap-4 px-[50px] max-sm:px-[25px] dark:text-white ">
+    <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-1 xl:grid-cols-2 gap-4 px-[50px] max-sm:px-[25px] dark:text-white ">
       {data?.map((item: any) => (
         <div
           key={item.id}
@@ -81,22 +81,20 @@ function ListCard() {
         >
           {/* //!Top of card */}
           {/* //!اسم و عکس */}
-          <div className="flex items-center justify-end w-full ">
-            <div className=" flex items-center justify-between w-full">
-              <p className="text-right mx-3 w-[75%] md:text-xl font-bold right-0 translate-x-2  ">{item.person}</p>
-              <div className="relative">
+            <div className=" flex items-center justify-between  w-full">
+              <p className="text-right mx-3 w-full md:text-xl font-bold    ">{item.person}</p>
+              <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0   ">
                 <div
                   style={{ backgroundColor: numberToRandomColor(item.id) }}
-                  className={`absolute rounded-full shadow-xl   w-16 h-16 max-sm:w-10 max-sm:h-10`}
+                  className={`absolute w-full h-full  `}
                 ></div>
                 <Image
                   src={Avatar}
                   alt="user-image"
-                  className="rounded-full w-16 h-16 max-sm:w-10 max-sm:h-10 opacity-80 border-2 border-black"
+                  className=" opacity-80 "
                 />
               </div>
             </div>
-          </div>
           {/* //!بدهی */}
           <div className="flex items-center justify-end w-full">
             <div className="font-vazir  text-xl my-10">
@@ -125,3 +123,22 @@ function ListCard() {
     </div>
   );
 }
+
+
+
+// <div className="flex items-center justify-end w-full ">
+//             <div className=" flex items-center justify-between  w-full">
+//               <p className="text-right mx-3 w-full md:text-xl font-bold right-0  max-sm:translate-x-[60px] sm:translate-x-[60px] md:translate-x-[60px]  ">{item.person}</p>
+//               <div className="relative w-[35%]  flex items-center justify-end ">
+//                 <div
+//                   style={{ backgroundColor: numberToRandomColor(item.id) }}
+//                   className={`absolute rounded-full shadow-xl   w-16 h-16 max-sm:w-10 max-sm:h-10`}
+//                 ></div>
+//                 <Image
+//                   src={Avatar}
+//                   alt="user-image"
+//                   className="rounded-full w-16 h-16 max-sm:w-10 max-sm:h-10 opacity-80 border-2 border-black"
+//                 />
+//               </div>
+//             </div>
+//           </div>
