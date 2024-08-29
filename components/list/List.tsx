@@ -1,7 +1,7 @@
 "use client";
 
 import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import React, { useState } from "react";
 import Avatar from "@/public/Profile_avatar_placeholder_large.png";
@@ -9,17 +9,18 @@ import jalaali from "jalaali-js";
 import { convertToPersianNumerals } from "@/utils/convertNumbers";
 import Link from "next/link";
 import { CalendarDays, Clock } from "lucide-react";
+import DeleteButton from "./DeleteButton";
 
 export default function List() {
   return (
     <div>
-      <ReactQueryProvider>
         <ListCard />
-      </ReactQueryProvider>
     </div>
   );
 }
 function ListCard() {
+  const queryClient = useQueryClient();
+
   const [searched, setSearched] = useState("");
   const { isLoading, error, data } = useQuery({
     queryKey: ["listData"],
@@ -87,6 +88,37 @@ function ListCard() {
 
     return color;
   }
+  //!The mutation for DELETE .....................................
+  const deleteCard = async (id: string) => {
+    const response = await fetch(`/api/list/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete card');
+    }
+    return response.json();
+  };
+  // Mutation for deleting a card
+  const mutation = useMutation({
+    mutationFn: deleteCard,
+    onSuccess: () => {
+      // Invalidate and refetch the list data to reflect the deletion
+      queryClient.invalidateQueries({ queryKey: ['listData'] })
+    },
+    onError: (error: Error) => {
+      console.error('Error deleting card:', error);
+    },
+  });
+
+  const handleDelete = (id: string) => {
+    if (window.confirm('Are you sure you want to delete this card?')) {
+      mutation.mutate(id);
+    }
+  };
+
+
+
+  
   return (
     <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-1 xl:grid-cols-2 gap-4 px-[50px] max-sm:px-[25px] dark:text-white ">
       {/* <div className="w-full">
@@ -100,7 +132,7 @@ function ListCard() {
        items-center justify-center flex-col p-4 my-3 font-vazir w-full"
           >
             <div className=" flex items-center justify-between  w-full">
-              <p className="text-right right-0 mx-3 w-full md:text-xl font-bold h-[50%] animate-pulse rounded-xl bg-slate-50   "></p>
+              <p className="text-right right-0 mx-3 w-full md:text-xl font-bold h-[50%] animate-pulse rounded-xl bg-slate-200   "></p>
               <div className="relative w-16 h-16 max-sm:w-10 max-sm:h-10 rounded-full overflow-hidden flex-shrink-0   ">
                 <div
                   className={`absolute w-full h-full animate-pulse bg-slate-200  `}
@@ -127,15 +159,14 @@ function ListCard() {
             </div>
             {/* //!تاریخ ها */}
             <div className="flex items-center justify-between w-full h-[100px] mt-10 gap-2">
-              <div className="animate-pulse w-full h-full bg-slate-200"></div>
-              <div className="animate-pulse w-full h-full bg-slate-200"></div>
+              <div className="animate-pulse w-full h-full bg-slate-200 rounded-xl"></div>
+              <div className="animate-pulse w-full h-full bg-slate-200 rounded-xl"></div>
             </div>
           </div>
         ))}
       {/* //!The data map..................... */}
       {data?.map((item: any) => (
-        <Link
-          href={`list/${item.id}`}
+        <div
           key={item.id}
           className="rounded-xl shadow-md bg-slate-50 hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
          items-center justify-center flex-col p-4 my-3 font-vazir w-full"
@@ -191,11 +222,11 @@ function ListCard() {
                   اتمام مهلت
                 </p>
                 <div className=" flex flex-col gap-2 text-right  w-full ">
-                  <div className=" text-lg text-slate-600 w-full text-right items-center justify-start gap-1 flex  ">
+                  <div className=" text-lg text-slate-600 dark:text-slate-400  w-full text-right items-center justify-start gap-1 flex  ">
                     <CalendarDays className="right-0 w-6 h-6" />
                     <p>{getPersianDate(createFormat(item.createdAt), true)}</p>
                   </div>
-                  <div className=" text-lg text-slate-600 w-full text-right items-center justify-start gap-1 flex  ">
+                  <div className=" text-lg text-slate-600 dark:text-slate-400 w-full text-right items-center justify-start gap-1 flex  ">
                     <Clock className="right-0 w-6 h-6" />
                     <p>{getPerdianTime(createFormat(item.createdAt))}</p>
                   </div>
@@ -211,19 +242,23 @@ function ListCard() {
                   تاریخ تشکیل
                 </p>
                 <div className=" flex flex-col gap-2 w-full text-right">
-                  <div className=" text-lg text-slate-600 text-right w-full items-center justify-end gap-1 flex   ">
+                  <div className=" text-lg text-slate-600 dark:text-slate-400 text-right w-full items-center justify-end gap-1 flex   ">
                     <p>{getPersianDate(createFormat(item.createdAt), false)}</p>
                     <CalendarDays className="right-0 w-6 h-6" />
                   </div>
-                  <div className=" text-lg text-slate-600 w-full text-right items-center justify-end gap-1 flex  ">
+                  <div className=" text-lg text-slate-600 dark:text-slate-400 w-full text-right items-center justify-end gap-1 flex  ">
                     <p>{getPerdianTime(createFormat(item.createdAt))}</p>
                     <Clock className="right-0 w-6 h-6" />
                   </div>
                 </div>
               </div>
             </div>
+            <button onClick={() => handleDelete(item.id)} disabled={mutation.isPending}>
+                {mutation.isPending ? 'Deleting...' : 'Delete'}
+              </button>
+            {/* <DeleteButton id={item.id} /> */}
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );

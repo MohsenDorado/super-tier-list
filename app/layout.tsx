@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import Header from "@/components/header/Header";
 import CustomFooter from "@/components/mobile/CustomFooter";
+import ReactQueryProvider from "./providers/ReactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
 
       
+        <ReactQueryProvider>
 
         <ThemeProvider
           attribute="class"
@@ -32,6 +34,8 @@ export default function RootLayout({
           {children}
         <CustomFooter />
         </ThemeProvider>
+        </ReactQueryProvider>
+
       </body>
     </html>
   );
