@@ -3,22 +3,23 @@
 import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@/public/Profile_avatar_placeholder_large.png";
 import jalaali from "jalaali-js";
 import { convertToPersianNumerals } from "@/utils/convertNumbers";
 import Link from "next/link";
-import { CalendarDays, Clock } from "lucide-react";
-import DeleteButton from "./DeleteButton";
+import { CalendarDays, Clock, Trash } from "lucide-react";
+// import DeleteButton from "./DeleteButton";
+import ClipLoader from "react-spinners/ClipLoader";
+import Modal from "./Modal";
+import { motion,AnimatePresence } from "framer-motion";
 
-export default function List() {
-  return (
-    <div>
-        <ListCard />
-    </div>
-  );
-}
-function ListCard() {
+
+function List() {
+  const [deleting, setDeleting] = useState(false);
+
+  const [deletingId, setDeletingId] = useState<string>("")
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const queryClient = useQueryClient();
 
   const [searched, setSearched] = useState("");
@@ -111,19 +112,67 @@ function ListCard() {
   });
 
   const handleDelete = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this card?')) {
+    try {
+      setDeleting(true);
       mutation.mutate(id);
+
+      setDeletingId("")
+    } catch (error) {
+      setIsModalOpen(false);
+    } finally {
+      setDeleting(false);
     }
+     
+    
   };
 
+  useEffect(() => {
+    if (deleting === false && mutation.isPending === false) {
+      setIsModalOpen(false);
+    }
+  }, [mutation.isPending]);
 
-
-  
+  useEffect(() => {
+    if (deletingId) {
+      setIsModalOpen(true)
+      
+    }
+    
+    
+  }, [deletingId])
+  const handleDeleteButton=(id:string)=>{
+    setDeletingId(id)
+    setIsModalOpen(true)
+  }
   return (
+    
+
     <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-1 xl:grid-cols-2 gap-4 px-[50px] max-sm:px-[25px] dark:text-white ">
       {/* <div className="w-full">
     <input onChange={(e)=>setSearched(e.target.value)} value={searched} type="text" className="p-2 border rounded-xl w-full font-Yekan " placeholder="جستجو" />
    </div> */}
+   <Modal
+        deletingTodo={mutation.isPending}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <h1 className="p-2 font-bold text-black">Sure to delete ?</h1>
+        <div className="flex items-center justify-center w-full gap-5 mt-1 px-3">
+          <button
+            onClick={() => {
+              setIsModalOpen(false);
+            }}
+            className="font-semibold p-1 text-md rounded-md border-none text-white bg-green-400 w-[100px] h-[50px]"
+          >
+            Cancel
+          </button>
+          <button
+            className="w-[100px] bg-red-600 rounded-md p-2 m-3 h-[50px]"
+            onClick={() => handleDelete(deletingId)} disabled={mutation.isPending}>
+                {mutation.isPending ? <ClipLoader className="w-full  h-7 border-white fill-white text-white"/> : <Trash className="h-7 w-full hover:fill-white transition-all duration-100" />}
+              </button>
+        </div>
+      </Modal>
       {isLoading &&
         Array.from({ length: 5 }).map((_, index) => (
           <div
@@ -165,8 +214,15 @@ function ListCard() {
           </div>
         ))}
       {/* //!The data map..................... */}
+
+
+      <AnimatePresence>
       {data?.map((item: any) => (
-        <div
+        <motion.div
+        initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.3 }}
+            transition={{ duration: 0.5 }}
           key={item.id}
           className="rounded-xl shadow-md bg-slate-50 hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
          items-center justify-center flex-col p-4 my-3 font-vazir w-full"
@@ -182,7 +238,7 @@ function ListCard() {
                 style={{ backgroundColor: numberToRandomColor(item.id) }}
                 className={`absolute w-full h-full  `}
               ></div>
-              <Image src={Avatar} alt="user-image" className=" opacity-80  " />
+              <Image src={Avatar} alt="user-image" className=" opacity-60  " />
             </div>
           </div>
           {/* //!بدهی */}
@@ -253,13 +309,25 @@ function ListCard() {
                 </div>
               </div>
             </div>
-            <button onClick={() => handleDelete(item.id)} disabled={mutation.isPending}>
-                {mutation.isPending ? 'Deleting...' : 'Delete'}
-              </button>
-            {/* <DeleteButton id={item.id} /> */}
           </div>
-        </div>
-      ))}
+          
+            <button
+            className="w-full bg-red-600 rounded-md p-2 m-3"
+            onClick={() => handleDeleteButton(item.id)} disabled={mutation.isPending||isModalOpen}>
+                 <Trash className="h-7 w-full hover:fill-white transition-all duration-100" />
+              </button>
+              
+          {/* <DeleteButton id={item.id} /> */}
+        </motion.div>
+      )
+      
+    )
+    
+  }
+  </AnimatePresence>
+
     </div>
+
   );
 }
+export default List;

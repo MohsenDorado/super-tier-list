@@ -1,4 +1,3 @@
-import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
 
 export default function ListLayout({
   children,

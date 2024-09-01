@@ -23,7 +23,6 @@ export default function RootLayout({
       <body className={inter.className}>
 
       
-        <ReactQueryProvider>
 
         <ThemeProvider
           attribute="class"
@@ -34,7 +33,6 @@ export default function RootLayout({
           {children}
         <CustomFooter />
         </ThemeProvider>
-        </ReactQueryProvider>
 
       </body>
     </html>
