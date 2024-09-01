@@ -1,14 +1,11 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-
+import toast from 'react-hot-toast';
 
 const AddList = () => {
   const [person, setPerson] = useState("");
-  const [amount, setAmount] = useState<number|null>(null); // For storing the raw value
-
-
+  const [amount, setAmount] = useState<number | null>(null);
 
   const createCard = async ({ person, amount }: { person: string; amount: number }) => {
     const response = await fetch('/api/list', {
@@ -18,80 +15,98 @@ const AddList = () => {
       },
       body: JSON.stringify({ person, amount }),
     });
-  
+
     if (!response.ok) {
-      throw new Error('Failed to create new card');
+      // Extract error message from response (if any)
+      const errorData = await response.json();
+      const errorMessage = errorData?.message || 'Failed to create new card';
+      throw new Error(errorMessage);
     }
-  
+
     return response.json();
   };
 
   const queryClient = useQueryClient();
- 
+
   const createMutation = useMutation({
     mutationFn: createCard,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["listData"] });
       setPerson('');
       setAmount(null);
-      
+      toast.success(`Card for ${person} created successfully!`); // Show success toast with person's name
     },
     onError: (error: Error) => {
-      console.error('Error creating card:', error);
-    },
+      console.error('Error creating card:', error.message);
+      toast.custom(
+        (t) => (
+          <div
+            className={`${
+              t.visible ? 'animate-enter' : 'animate-leave'
+            } max-w-md w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 text-right rounded-lg shadow-lg flex items-center`}
+          >
+            <span className="mr-2">❌</span>
+            <div>
+               کارت برای  <strong>{person}</strong> اضافه نشد. دلیل :  {error.message==="Unexpected end of JSON input"&&"ورودی بیش از حد"}
+            </div>
+          </div>
+        ),
+        { duration: 3000 }
+      ); 
+       },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (amount) {
-      
       createMutation.mutate({ person, amount });
     }
   };
-  const handleAmountChange = (e:any) => {
+
+  const handleAmountChange = (e: any) => {
     const value = e.target.value;
     const numberValue = parseFloat(value);
 
-    // Only set the number if it's a valid number, otherwise default to 0 or NaN
     if (!isNaN(numberValue)) {
       setAmount(numberValue);
     } else {
-      setAmount(null); // or another default value
+      setAmount(null);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Person:
-          <input
-            type="text"
-            value={person}
-            onChange={(e) => setPerson(e.target.value)}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Amount:
-          <input
-          className='font-vazir decoration'
-            type="number"
-            value={amount !== null ? amount : ''}
-            onChange={handleAmountChange}
-            required
-            min="0" // Ensures only positive numbers are accepted
-            step="1" // Ensures only whole numbers are accepted
-            
-          />
-        </label>
-      </div>
-      <button type="submit" disabled={createMutation.isPending}>
-        {createMutation.isPending ? 'Creating...' : 'Create Card'}
-      </button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>
+            Person:
+            <input
+              type="text"
+              value={person}
+              onChange={(e) => setPerson(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Amount:
+            <input
+              className='font-vazir decoration'
+              type="number"
+              value={amount !== null ? amount : ''}
+              onChange={handleAmountChange}
+              required
+              min="0"
+              step="1"
+            />
+          </label>
+        </div>
+        <button type="submit" disabled={createMutation.isPending}>
+          {createMutation.isPending ? 'Creating...' : 'Create Card'}
+        </button>
+      </form>
+    </div>
   );
 };
 

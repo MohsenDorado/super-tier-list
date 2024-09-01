@@ -5,6 +5,7 @@ import { ThemeProvider } from "../components/theme-provider";
 import Header from "@/components/header/Header";
 import CustomFooter from "@/components/mobile/CustomFooter";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,19 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <Toaster
+           
+          />
 
-      
-
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          >
-            <Header/>
-            {/* <TestHeader/> */}
+          <Header />
+          {/* <TestHeader/> */}
           {children}
-        <CustomFooter />
+          <CustomFooter />
         </ThemeProvider>
-
       </body>
     </html>
   );
