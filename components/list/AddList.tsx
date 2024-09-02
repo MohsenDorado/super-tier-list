@@ -1,17 +1,23 @@
 "use client";
-import React, { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const AddList = () => {
   const [person, setPerson] = useState("");
   const [amount, setAmount] = useState<number | null>(null);
 
-  const createCard = async ({ person, amount }: { person: string; amount: number }) => {
-    const response = await fetch('/api/list', {
-      method: 'POST',
+  const createCard = async ({
+    person,
+    amount,
+  }: {
+    person: string;
+    amount: number;
+  }) => {
+    const response = await fetch("/api/list", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ person, amount }),
     });
@@ -19,7 +25,7 @@ const AddList = () => {
     if (!response.ok) {
       // Extract error message from response (if any)
       const errorData = await response.json();
-      const errorMessage = errorData?.message || 'Failed to create new card';
+      const errorMessage = errorData?.message || "Failed to create new card";
       throw new Error(errorMessage);
     }
 
@@ -32,28 +38,44 @@ const AddList = () => {
     mutationFn: createCard,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["listData"] });
-      setPerson('');
+      setPerson("");
       setAmount(null);
-      toast.success(`Card for ${person} created successfully!`); // Show success toast with person's name
+      toast.success(
+        <strong>
+
+          کارت اضافه شد
+        </strong>
+      ); // Show success toast with person's name
     },
     onError: (error: Error) => {
-      console.error('Error creating card:', error.message);
-      toast.custom(
-        (t) => (
-          <div
-            className={`${
-              t.visible ? 'animate-enter' : 'animate-leave'
-            } max-w-md w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 text-right rounded-lg shadow-lg flex items-center`}
-          >
-            <span className="mr-2">❌</span>
-            <div>
-               کارت برای  <strong>{person}</strong> اضافه نشد. دلیل :  {error.message==="Unexpected end of JSON input"&&"ورودی بیش از حد"}
-            </div>
-          </div>
-        ),
-        { duration: 3000 }
-      ); 
-       },
+      toast.error(
+        `${
+          error.message === "Unexpected end of JSON input" ? (
+            <strong>ورودی قابل قبول نیست</strong>
+          ) : (
+            <strong>کارت اضافه نشد</strong>
+          )
+        }`
+      );
+      // toast.custom(
+      //   (t) => (
+      //     <div
+      //       className={`${
+      //         t.visible ? "animate-enter" : "animate-leave"
+      //       } max-w-md w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 text-right rounded-lg shadow-lg flex items-center`}
+      //     >
+      //       <span className="mr-2">❌</span>
+      //       <div>
+      //         کارت برای <strong>{person}</strong> اضافه نشد. دلیل :{" "}
+      //         {error.message === "Unexpected end of JSON input"
+      //           ? "ورودی بیش از حد"
+      //           : "اتصال نا مرغوب"}
+      //       </div>
+      //     </div>
+      //   ),
+      //   { duration: 2000 }
+      // );
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -92,9 +114,9 @@ const AddList = () => {
           <label>
             Amount:
             <input
-              className='font-vazir decoration'
+              className="font-vazir decoration"
               type="number"
-              value={amount !== null ? amount : ''}
+              value={amount !== null ? amount : ""}
               onChange={handleAmountChange}
               required
               min="0"
@@ -103,7 +125,7 @@ const AddList = () => {
           </label>
         </div>
         <button type="submit" disabled={createMutation.isPending}>
-          {createMutation.isPending ? 'Creating...' : 'Create Card'}
+          {createMutation.isPending ? "Creating..." : "Create Card"}
         </button>
       </form>
     </div>

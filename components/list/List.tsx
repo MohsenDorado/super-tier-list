@@ -253,7 +253,7 @@ function List() {
       {/* //!The data map..................... */}
 
       <AnimatePresence>
-        {data?.map((item: any) => (
+        {data?.cards.map((item: any) => (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
