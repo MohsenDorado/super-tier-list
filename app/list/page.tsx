@@ -17,8 +17,8 @@ const ListPage = () => {
     <div className="mt-[150px] mb-[150px] ">
       <ReactQueryProvider>
       <AddList/>
-      <ListOrder/>
       <Count/>
+      <ListOrder/>
 
       <List/>
       </ReactQueryProvider>

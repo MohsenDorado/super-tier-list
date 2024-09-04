@@ -273,7 +273,7 @@ function List() {
             exit={{ opacity: 0, scale: 0.3 }}
             transition={{ duration: 0.5 }}
             key={item.id}
-            className="rounded-xl shadow-md bg-slate-50 sm:hover:brightness-90 sm:dark:bg-slate-800 transition-all duration-100 flex
+            className="rounded-xl shadow-md bg-slate-50 sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
          items-center justify-center flex-col p-4 my-3 font-vazir w-full"
           >
             {/* //!Top of card */}
