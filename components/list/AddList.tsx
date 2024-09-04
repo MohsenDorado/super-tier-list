@@ -41,22 +41,22 @@ const AddList = () => {
       setPerson("");
       setAmount(null);
       toast.success(
-        <strong>
+        <strong className="font-vazir">
 
           کارت اضافه شد
         </strong>
       ); // Show success toast with person's name
     },
     onError: (error: Error) => {
-      toast.error(
-        `${
-          error.message === "Unexpected end of JSON input" ? (
-            <strong>ورودی قابل قبول نیست</strong>
-          ) : (
-            <strong>کارت اضافه نشد</strong>
-          )
-        }`
+      const message =
+      error.message === "Unexpected end of JSON input" ? (
+        <strong className="font-vazir">ورودی قابل قبول نیست</strong>
+      ) : (
+        <strong className="font-vazir">کارت اضافه نشد</strong>
       );
+      toast.error(message
+      );
+
       // toast.custom(
       //   (t) => (
       //     <div

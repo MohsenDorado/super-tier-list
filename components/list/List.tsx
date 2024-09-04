@@ -13,19 +13,26 @@ import { CalendarDays, Clock, Trash } from "lucide-react";
 import ClipLoader from "react-spinners/ClipLoader";
 import Modal from "./Modal";
 import { motion, AnimatePresence } from "framer-motion";
+import toast from "react-hot-toast";
+import _ from 'lodash';
+import { useOrder } from "@/store/useOrder";
 
 function List() {
   const [deleting, setDeleting] = useState(false);
-
   const [deletingId, setDeletingId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
-
+  
   const [searched, setSearched] = useState("");
   const { isLoading, error, data } = useQuery({
     queryKey: ["listData"],
     queryFn: () => fetch("api/list").then((res) => res.json()),
   });
+  //! order by the creation date ........................................ 
+  const sortOrder = useOrder((state) => state.sortOrder);
+  const sortedCards:any = _.orderBy(data?.cards, ['createdAt'], [sortOrder]);
+  console.log("sorteeeeeeeeeeeeeeeeeed",sortedCards);
+  
   function getPerdianTime(gregorianDate: Date): string {
     const hours = gregorianDate.getHours();
     const minutes = gregorianDate.getMinutes();
@@ -139,6 +146,12 @@ function List() {
     onSuccess: () => {
       // Invalidate and refetch the list data to reflect the deletion
       queryClient.invalidateQueries({ queryKey: ["listData"] });
+      toast.success(
+        <strong className="font-vazir">
+
+          کارت حذف شد
+        </strong>
+      )
     },
     onError: (error: Error) => {
       console.error("Error deleting card:", error);
@@ -184,7 +197,7 @@ function List() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       >
-        <h1 className="p-2 font-bold text-black font-vazir text-right">این کارت حذف شود؟</h1>
+        <h1 className="p-2 font-bold text-black font-vazir text-right">از حذف این کارت اطمینان دارید؟ <br/><span className=" text-sm font-medium text-slate-500">(این عملیات قابل بازگشت نیست)</span></h1>
         <div className="flex items-center justify-center w-full gap-5 mt-1 px-3">
           <button
             onClick={() => {
@@ -205,7 +218,7 @@ function List() {
                 className="w-full   h-7 border-white fill-white text-white"
               />
             ) : (
-              <Trash className="h-7 w-full dark:group-hover:fill-white group-hover:fill-black transition-all duration-100" />
+              <Trash className="h-7 w-full dark:sm:group-hover:fill-white sm:group-hover:fill-black transition-all duration-100" />
             )}
           </button>
         </div>
@@ -253,14 +266,14 @@ function List() {
       {/* //!The data map..................... */}
 
       <AnimatePresence>
-        {data?.cards.map((item: any) => (
+        {sortedCards?.map((item: any) => (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.3 }}
             transition={{ duration: 0.5 }}
             key={item.id}
-            className="rounded-xl shadow-md bg-slate-50 hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
+            className="rounded-xl shadow-md bg-slate-50 sm:hover:brightness-90 sm:dark:bg-slate-800 transition-all duration-100 flex
          items-center justify-center flex-col p-4 my-3 font-vazir w-full"
           >
             {/* //!Top of card */}
@@ -360,7 +373,7 @@ function List() {
               onClick={() => handleDeleteButton(item.id)}
               disabled={mutation.isPending || isModalOpen}
             >
-              <Trash className="h-7 w-full dark:hover:fill-white hover:fill-black transition-all duration-100" />
+              <Trash className="h-7 w-full sm:dark:hover:fill-white sm:hover:fill-black transition-all duration-100" />
             </button>
           </motion.div>
         ))}
