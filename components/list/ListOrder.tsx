@@ -11,27 +11,27 @@ const ListOrder: React.FC = () => {
   const { sortOrder, toggleSortOrder, loading, setSortOrder } = useOrder();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleOrderBy = () => {
-   setIsOpen(!isOpen)
+    setIsOpen(!isOpen);
   };
   //!clicks outside of opened modal, but exclude 60px top..............................
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-        if (modalRef.current) {
-          const rect = modalRef.current.getBoundingClientRect();
-          const bufferTop = 60; // 60 pixels buffer area above the modal
-      
-          // Check if the click is within the modal or the buffer area above it
-          const clickedInsideBufferArea =
-            event.clientX >= rect.left &&
-            event.clientX <= rect.right &&
-            event.clientY >= rect.top - bufferTop &&
-            event.clientY <= rect.bottom;
-      
-          if (!clickedInsideBufferArea) {
-            setIsOpen(false); // Close the modal if click is outside this area
-          }
+      if (modalRef.current) {
+        const rect = modalRef.current.getBoundingClientRect();
+        const bufferTop = 60; // 60 pixels buffer area above the modal
+
+        // Check if the click is within the modal or the buffer area above it
+        const clickedInsideBufferArea =
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top - bufferTop &&
+          event.clientY <= rect.bottom;
+
+        if (!clickedInsideBufferArea) {
+          setIsOpen(false); // Close the modal if click is outside this area
         }
-      };
+      }
+    };
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -40,11 +40,11 @@ const ListOrder: React.FC = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, setIsOpen]);
-  
 
   return (
     <div className="w-full bg-transparent flex items-center justify-center gap-x-4 flex-row font-vazir">
       <button
+      disabled={loading}
         className="rounded-full px-4 py-2 bg-transparent border bg-black flex items-center justify-center relative h-[50px]"
         onClick={handleOrderBy}
       >
@@ -60,14 +60,14 @@ const ListOrder: React.FC = () => {
         {isOpen && (
           <div
             ref={modalRef}
-            className="z-50 absolute w-full bg-gray-500 top-0 translate-y-[50px] flex flex-col"
+            className="z-50 absolute w-full  top-0 translate-y-[50px] flex flex-col"
           >
             <button
               onClick={() => {
                 sortOrder === "desc" ? setIsOpen(false) : setSortOrder("desc");
                 setIsOpen(false); // Close the modal after clicking
               }}
-              className="px-4 py-2 bg-transparent border bg-black hover:brightness-90"
+              className="px-4 py-2  border bg-white dark:bg-black hover:brightness-90 text-sm font-light dark:sm:hover:bg-slate-800"
             >
               جدیدترین
             </button>
@@ -77,7 +77,7 @@ const ListOrder: React.FC = () => {
                 sortOrder === "asc" ? setIsOpen(false) : setSortOrder("asc");
                 setIsOpen(false); // Close the modal after clicking
               }}
-              className="px-4 py-2 bg-transparent border bg-black hover:brightness-90"
+              className="px-4 py-2  border bg-white dark:bg-black hover:brightness-90 text-sm font-light dark:sm:hover:bg-slate-800"
             >
               قدیمی ترین
             </button>

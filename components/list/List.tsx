@@ -17,17 +17,20 @@ import toast from "react-hot-toast";
 import _ from 'lodash';
 import { useOrder } from "@/store/useOrder";
 
+
 function List() {
   const [deleting, setDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
-  
+  const [skeletonLoading, setSkeletonLoading] = useState(false)
   const [searched, setSearched] = useState("");
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data} = useQuery({
     queryKey: ["listData"],
     queryFn: () => fetch("api/list").then((res) => res.json()),
   });
+  const{loading}=useOrder();
+
   //! order by the creation date ........................................ 
   const sortOrder = useOrder((state) => state.sortOrder);
   const sortedCards:any = _.orderBy(data?.cards, ['createdAt'], [sortOrder]);
@@ -186,6 +189,19 @@ function List() {
     setDeletingId(id);
     setIsModalOpen(true);
   };
+  useEffect(() => {
+    if (isLoading||loading) {
+      
+      setSkeletonLoading(true)
+    }
+    if(!isLoading&&!loading) {
+      setSkeletonLoading(false)
+
+    }
+    
+   
+  }, [isLoading,loading])
+  
   return (
     <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-1 xl:grid-cols-2 gap-4 px-[50px] max-sm:px-[25px] dark:text-white ">
       {/* <div className="w-full">
@@ -223,7 +239,7 @@ function List() {
           </button>
         </div>
       </Modal>
-      {isLoading &&
+      {isLoading&&
         Array.from({ length: 5 }).map((_, index) => (
           <div
             key={index}
