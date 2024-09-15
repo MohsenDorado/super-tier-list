@@ -24,7 +24,6 @@ function List() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
   const [skeletonLoading, setSkeletonLoading] = useState(false)
-  const [searched, setSearched] = useState("");
   const { isLoading, error, data} = useQuery({
     queryKey: ["listData"],
     queryFn: () => fetch("api/list").then((res) => res.json()),
@@ -34,7 +33,6 @@ function List() {
   //! order by the creation date ........................................ 
   const sortOrder = useOrder((state) => state.sortOrder);
   const sortedCards:any = _.orderBy(data?.cards, ['createdAt'], [sortOrder]);
-  console.log("sorteeeeeeeeeeeeeeeeeed",sortedCards);
   
   function getPerdianTime(gregorianDate: Date): string {
     const hours = gregorianDate.getHours();
@@ -47,7 +45,7 @@ function List() {
     let modifiedDate = new Date(gregorianDate);
 
     modifiedDate.setDate(modifiedDate.getDate() + 90);
-    console.log(gregorianDate);
+    // console.log(gregorianDate);
     const { jy, jm, jd } = jalaali.toJalaali(
       isOneMonthEnd ? modifiedDate : gregorianDate
     );
@@ -341,19 +339,19 @@ function List() {
             {/* //! : تاریخ  */}
             <div className="flex items-center justify-between w-full">
               {/* //!اتمام مهلت */}
-              <div className="font-vazir  text-xl  w-full flex items-center justify-center  ">
-                <div className="flex items-center justify-center flex-col gap-2 max-sm:text-sm  w-full">
-                  <p className=" w-full  text-center text-lg max-sm:text-[1rem]">
+              <div className="font-vazir  text-xl  w-full flex items-center justify-center   ">
+                <div className="flex items-center justify-center flex-col gap-2 max-sm:text-xs  w-full">
+                  <p className=" w-full max-sm:text-sm  text-center text-lg max-sm:text-[1rem]">
                     اتمام مهلت
                   </p>
                   <div className=" flex flex-col gap-2 text-right  w-full ">
-                    <div className=" text-lg text-slate-600 dark:text-slate-400  w-full text-right items-center justify-start gap-1 flex  ">
+                    <div className=" max-sm:text-sm text-lg text-slate-600 dark:text-slate-400  w-full text-right items-center justify-start gap-1 flex  ">
                       <CalendarDays className="right-0 w-6 h-6" />
                       <p>
                         {getPersianDate(createFormat(item.createdAt), true)}
                       </p>
                     </div>
-                    <div className=" text-lg text-slate-600 dark:text-slate-400 w-full text-right items-center justify-start gap-1 flex  ">
+                    <div className=" text-lg max-sm:text-sm text-slate-600 dark:text-slate-400 w-full text-right items-center justify-start gap-1 flex  ">
                       <Clock className="right-0 w-6 h-6" />
                       <p>{getPerdianTime(createFormat(item.createdAt))}</p>
                     </div>
@@ -364,18 +362,70 @@ function List() {
               <div className="w-[1px] h-full bg-slate-400 rounded-full mx-6 max-sm:mx-2"></div>
               {/* //!تاریخ تشکیل */}
               <div className="font-vazir  text-xl  w-full  flex items-center justify-center">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
                 <div className="flex items-center justify-center flex-col gap-2 max-sm:text-sm w-full">
-                  <p className=" w-full text-center text-lg max-sm:text-[1rem]">
+                  <p className="max-sm:text-sm w-full text-center text-lg max-sm:text-[1rem]">
                     تاریخ تشکیل
                   </p>
-                  <div className=" flex flex-col gap-2 w-full text-right">
-                    <div className=" text-lg text-slate-600 dark:text-slate-400 text-right w-full items-center justify-end gap-1 flex   ">
+                  <div className="max-sm:text-sm flex flex-col gap-2 w-full text-right">
+                    <div className="max-sm:text-sm text-lg text-slate-600 dark:text-slate-400 text-right w-full items-center justify-end gap-1 flex   ">
                       <p>
                         {getPersianDate(createFormat(item.createdAt), false)}
                       </p>
                       <CalendarDays className="right-0 w-6 h-6" />
                     </div>
-                    <div className=" text-lg text-slate-600 dark:text-slate-400 w-full text-right items-center justify-end gap-1 flex  ">
+                    <div className="max-sm:text-sm text-lg text-slate-600 dark:text-slate-400 w-full text-right items-center justify-end gap-1 flex  ">
                       <p>{getPerdianTime(createFormat(item.createdAt))}</p>
                       <Clock className="right-0 w-6 h-6" />
                     </div>
@@ -385,11 +435,11 @@ function List() {
             </div>
 
             <button
-              className="w-full bg-red-600 rounded-md p-2 m-3"
+              className="w-full bg-red-600 rounded-md p-2 m-3 group"
               onClick={() => handleDeleteButton(item.id)}
               disabled={mutation.isPending || isModalOpen}
             >
-              <Trash className="h-7 w-full sm:dark:hover:fill-white sm:hover:fill-black transition-all duration-100" />
+              <Trash className="h-7 w-full sm:dark:group-hover:fill-white sm:group-hover:fill-black transition-all duration-100" />
             </button>
           </motion.div>
         ))}
