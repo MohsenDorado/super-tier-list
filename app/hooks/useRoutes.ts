@@ -1,5 +1,7 @@
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
+import { RiAdminFill, RiAdminLine } from "react-icons/ri";
+
 import {
   IoCall,
   IoCallOutline,
@@ -23,11 +25,11 @@ const useRoutes = () => {
   const routes = useMemo<RoutesType[]>(
     () => [
       {
-        label: "ارتباط",
-        href: "/contact",
-        icon: IoCallOutline,
-        activeIcon: IoCall,
-        active: pathname.includes("/contact"),
+        label: "ادمین",
+        href: "/admin",
+        icon: RiAdminLine ,
+        activeIcon: RiAdminFill ,
+        active: pathname==="/admin",
       },
       {
         label: "صفحه اصلی",

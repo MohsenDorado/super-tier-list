@@ -1,4 +1,4 @@
-export function convertToPersianNumerals(text: string): string {
+export function getPersianNumbers(text: string): string {
     const persianNumerals = '۰۱۲۳۴۵۶۷۸۹';
     const arabicNumerals = '0123456789';
 
