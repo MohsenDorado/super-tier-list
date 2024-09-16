@@ -17,7 +17,7 @@ console.log(data?.cards);
   return (
     <div className=''>
             {data?.cards.map((card)=>(
-                <div>
+                <div key={card.id}>
                     {card.person}
                 </div>
             ))}
