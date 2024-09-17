@@ -10,8 +10,8 @@ const ListPage = () => {
       <ReactQueryProvider>
       {/* <AddList/>
       <Count/> */}
-      <ListOrder/>
-      <ListHeader/>
+      {/* <ListOrder/> */}
+      {/* <ListHeader/> */}
       <List/>
       </ReactQueryProvider>
     </div>

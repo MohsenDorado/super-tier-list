@@ -22,6 +22,8 @@ import { getPersianNumbers } from "@/app/actions/getPersianNumbers";
 import {CardType} from "@/app/types/card-type";
 import { Card } from '@prisma/client';
 import { useCards } from "@/store/useCards";
+import { FaSearch } from "react-icons/fa";
+import ListOrder from "./ListOrder";
 
 function List() {
   const [searchedTerm, setSearchedTerm] = useState<string>("");
@@ -108,11 +110,34 @@ function List() {
 
 //!returnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
   return (
-    <div className="flex flex-col lg:mx-[17%] px-[50px] max-sm:px-[25px] dark:text-white ">
+    <div className="flex flex-col  dark:text-white ">
+      <div className="bg-white w-full flex items-center justify-center flex-col lg:px-[17%] max-sm:px-[5%] border-b">
+
+      <div className="flex items-center border justify-center rounded-lg  w-full  relative focus:border-slate-400 text-sm">
+      <input
+        type="text"
+        value={searchedTerm}
+        onChange={(event) => setSearchedTerm(event.target.value)}
+        className="font-vazir w-full mr-[50px] ml-[25px] py-2 text-right focus:border-slate-50 focus:outline-none "
+        placeholder="...جستجو"
+      />
+      <FaSearch className="absolute right-[20px] text-black dark:text-white" />
+   
+    </div>
+    <div className="w-full flex items-center justify-end my-2  ">
       <div>
+
+    <ListOrder/>
+      </div>
+    </div>
+
+
+        {/* <div className="flex items-center justify-center flex-row w-full">
         <input type="text" value={searchedTerm} onChange={(event)=>{setSearchedTerm(event.target.value)}}
-        className='w-full border h-[100px]'
+        className='w-[100%] border h-[100px] lg:mx-[17%] px-[50px] max-sm:px-[25px]'
         />
+
+        </div> */}
     </div>
     {!isLoading&&filteredCards.length===0&&
        <div
@@ -122,7 +147,7 @@ function List() {
 فردی با این نام وجود ندارد
      </div>
       }
-    <div className="grid grid-cols-1  md:grid-cols-1 xl:grid-cols-2 gap-4  ">
+    <div className="lg:mx-[17%] px-[50px] max-sm:px-[25px] grid grid-cols-1  md:grid-cols-1 xl:grid-cols-2 gap-4  ">
      
 
       <Modal

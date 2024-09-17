@@ -57,7 +57,7 @@ const handleSort=(order:"asc"|"desc",sortingCategory:SortCategoriesType,sortingN
     <div className="w-full bg-transparent flex items-center justify-center gap-x-4 flex-row font-vazir">
       <button
         disabled={loading}
-        className="rounded-lg border  px-4 py-2 bg-transparent  bg-black flex items-center justify-center gap-1 relative h-[50px]"
+        className="rounded-full text-sm border  px-4 py-2 bg-transparent  bg-black flex items-center justify-center gap-1 relative h-[50px]"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
@@ -74,7 +74,7 @@ const handleSort=(order:"asc"|"desc",sortingCategory:SortCategoriesType,sortingN
         {isOpen && (
           <div
             ref={modalRef}
-            className="z-50 cursor-default bg-slate-200 dark:bg-slate-900 rounded-xl absolute w-full my-3 py-1  top-0 translate-y-[50px]  flex-col   flex items-center justify-center gap-5"
+            className="text-sm z-50 cursor-default bg-slate-200 dark:bg-slate-900 rounded-xl absolute w-full my-3 py-1  top-0 translate-y-[50px]  flex-col   flex items-center justify-center gap-5"
           >
             {
               MemberCardOrderQueries.map((item)=>(
