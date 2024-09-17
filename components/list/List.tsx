@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Avatar from "@/public/Profile_avatar_placeholder_large.png";
 import { CalendarDays, Clock, Trash } from "lucide-react";
 // import DeleteButton from "./DeleteButton";
@@ -21,8 +21,12 @@ import getCorrectDateTypeFromPrisma from "@/app/actions/getCorrectDateTypeFromPr
 import { getPersianNumbers } from "@/app/actions/getPersianNumbers";
 import {CardType} from "@/app/types/card-type";
 import { Card } from '@prisma/client';
+import { useCards } from "@/store/useCards";
 
 function List() {
+  const [searchedTerm, setSearchedTerm] = useState<string>("");
+
+  const{setSortedCards,sortedCards}=useCards();
   const [deleting, setDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +38,15 @@ function List() {
   //! order by the creation date ........................................
   const sortOrder = useOrder((state) => state.sortOrder);
   const sortCategory=useOrder((state)=>state.sortCategory)
-  const sortedCards:Card[] = _.orderBy(data?.cards, [sortCategory], [sortOrder]);
+  const sortedCardsByLodash:Card[] =useMemo(()=>{
+  
+   return _.orderBy(data?.cards, [sortCategory], [sortOrder]);
+  },[data, sortCategory, sortOrder]) 
+  useEffect(() => {
+    setSortedCards(sortedCardsByLodash)
+
+  }, [sortedCardsByLodash])
+  
   //!The mutation for DELETE .....................................
   const deleteCard = async (id: string) => {
     const response = await fetch(`/api/list/${id}`, {
@@ -83,11 +95,35 @@ function List() {
     setDeletingId(id);
     setIsModalOpen(true);
   };
+  //!filter the sorted list.......................................................
+
+  const filteredCards = useMemo(() => {
+    if (!searchedTerm.trim()) {
+      return sortedCards; // If the search term is empty, return all cards
+    }
+    return sortedCards.filter((card) =>
+      card.person.toLowerCase().includes(searchedTerm.trim().toLowerCase())
+    );
+  }, [searchedTerm, sortedCards]);
+
+//!returnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
   return (
-    <div className="grid grid-cols-1 lg:mx-[17%]  md:grid-cols-1 xl:grid-cols-2 gap-4 px-[50px] max-sm:px-[25px] dark:text-white ">
-      {/* <div className="w-full">
-    <input onChange={(e)=>setSearched(e.target.value)} value={searched} type="text" className="p-2 border rounded-xl w-full font-Yekan " placeholder="جستجو" />
-   </div> */}
+    <div className="flex flex-col lg:mx-[17%] px-[50px] max-sm:px-[25px] dark:text-white ">
+      <div>
+        <input type="text" value={searchedTerm} onChange={(event)=>{setSearchedTerm(event.target.value)}}
+        className='w-full border h-[100px]'
+        />
+    </div>
+    {filteredCards.length===0&&
+       <div
+      
+       className="flex items-center justify-center w-full h-[300px]  font-vazir font-extrabold "
+     >
+فردی با این نام وجود ندارد
+     </div>
+      }
+    <div className="grid grid-cols-1  md:grid-cols-1 xl:grid-cols-2 gap-4  ">
+     
 
       <Modal
         deletingTodo={mutation.isPending}
@@ -125,11 +161,12 @@ function List() {
           </button>
         </div>
       </Modal>
+      
       {isLoading &&
         Array.from({ length: 5 }).map((_, index) => (
           <div
             key={index}
-            className="rounded-xl shadow-md bg-slate-50 dark:bg-slate-800 transition-all duration-500 flex
+            className="rounded-xl shadow-md bg-slate-50 dark:bg-slate-800 transition-all duration-200 flex
        items-center justify-center flex-col p-4 my-3 font-vazir w-full"
           >
             <div className=" flex items-center justify-between  w-full">
@@ -166,14 +203,16 @@ function List() {
           </div>
         ))}
       {/* //!The data map..................... */}
+     
 
       <AnimatePresence>
-        {sortedCards?.map((item) => (
+        
+        {filteredCards.map((item) => (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.3 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, scale:0 }}
+            animate={{ opacity: 1, y: 0,scale:1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            transition={{ duration: 0.4, ease:"circInOut" }}
             key={item.id}
             className="rounded-xl shadow-md bg-slate-50 sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
          items-center justify-center flex-col p-4 my-3 font-vazir w-full"
@@ -281,6 +320,8 @@ function List() {
         ))}
       </AnimatePresence>
     </div>
+    </div>
+
   );
 }
 export default List;

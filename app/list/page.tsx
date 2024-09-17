@@ -1,32 +1,20 @@
 "use server";
 import React from "react";
 import List from "@/components/list/List";
-import AddList from "@/components/list/AddList";
 import ReactQueryProvider from "../providers/ReactQueryProvider";
-import Count from "@/components/list/Count";
-import ListOrder from "@/components/list/ListOrder";
 import ListHeader from "@/components/list/ListHeader";
-
+import ListOrder from "@/components/list/ListOrder";
 const ListPage = () => {
-
-
-
-
-
   return (
-
-    <div className="mt-[150px] mb-[150px] ">
+    <div className="mt-[70px] mb-[150px] bg-[#f8f9fa] min-h-[150vh] ">
       <ReactQueryProvider>
       {/* <AddList/>
       <Count/> */}
       <ListOrder/>
       <ListHeader/>
-
       <List/>
       </ReactQueryProvider>
     </div>
- 
   );
 };
-
 export default ListPage;

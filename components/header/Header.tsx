@@ -2,12 +2,9 @@
 import Link from "next/link";
 import useRoutes from "@/app/hooks/useRoutes";
 import ThemeToggle from "./ThemeToggle";
-import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { useEffect, useState } from "react";
-import { Menu } from "./Menu";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import NavChild from "./NavChild";
 
 export default function Header() {
   const pathname = usePathname();
@@ -20,7 +17,7 @@ export default function Header() {
   const routes = useRoutes();
   const router = useRouter();
   return (
-    <header className="font-Yekan px-[50px] z-50 lg:px-[17%] lg:justify-between max-sm:px-2 fixed h-[60px] top-0 left-0 w-full dark:bg-black bg-white  backdrop-blur-md  flex items-center justify-between ">
+    <header className="border-b-2 border-[#dde1e6]  font-Yekan px-[50px] z-50 lg:px-[17%] lg:justify-between max-sm:px-2 fixed h-[60px] top-0 left-0 w-full dark:bg-black bg-white  backdrop-blur-md  flex items-center justify-between ">
       <h1
         className="cursor-pointer text-3xl"
         onClick={() => {
@@ -41,7 +38,7 @@ export default function Header() {
                   key={route.href}
                   className="group relative"
                 >
-                  <Link className=" " href={route.href}>
+                  <Link className="text-sm text-slate-700 " href={route.href}>
               
                     <span className="z-10  p-2 flex items-center justify-center">
                       {/* {route.children && <IoIosArrowDown />} */}
