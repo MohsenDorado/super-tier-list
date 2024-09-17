@@ -114,7 +114,7 @@ function List() {
         className='w-full border h-[100px]'
         />
     </div>
-    {filteredCards.length===0&&
+    {!isLoading&&filteredCards.length===0&&
        <div
       
        className="flex items-center justify-center w-full h-[300px]  font-vazir font-extrabold "
