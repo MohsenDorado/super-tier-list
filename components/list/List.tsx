@@ -115,6 +115,7 @@ function List() {
 
       <div className="flex items-center border justify-center rounded-lg  w-full  relative focus:border-slate-400 text-sm">
       <input
+      style={{direction:"rtl"}}
         type="text"
         value={searchedTerm}
         onChange={(event) => setSearchedTerm(event.target.value)}
