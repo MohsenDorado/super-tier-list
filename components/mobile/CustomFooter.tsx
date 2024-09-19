@@ -41,6 +41,7 @@ const CustomFooter = () => {
         bg-white 
         dark:bg-black
         shadow-md
+        translate-y-2
      
         "
     >

@@ -27,6 +27,7 @@ import ListOrder from "./ListOrder";
 import Count from "./Count";
 import getDateDifference from "@/app/actions/getDateDifference";
 import CardInfo from "./CardInfo";
+import Link from "next/link";
 
 function List() {
   const [isSelected, setIsSelected] = useState<number|null>(null)
@@ -155,13 +156,15 @@ function List() {
         </div>
       )}
       <div className="w-full flex flex-row lg:px-[10%] max-lg:px-[5%] xl:px-[17%] pt-5">
+        {filteredCards.length>0&&
         <div className="w-full bg-white max-lg:hidden mx-3">
          {cardId===null?
-        <CardInfo isSelected={false}/> :<CardInfo isSelected={true} id={cardId}/>
+        <CardInfo isSelected={false}/> :<CardInfo isSelected={true} id={cardId.toString()}/>
         }
-
         </div>
-        <div className="flex items-center justify-center w-full flex-col pt-10">
+      }
+        <div className="flex items-center justify-center w-full flex-col pt-10 relative">
+        
           {/* <Count/> */}
           <div className=" grid grid-cols-1 gap-4 w-full  ">
             {/* <Modal
@@ -253,8 +256,11 @@ function List() {
                   transition={{ duration: 0.4, ease: "circInOut" }}
                   key={item.id}
                   className={`${isSelected===item.id&& "border-2 border-slate-600"} cursor-pointer rounded-xl border border-slate-200  bg-white sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
-         items-start justify-center flex-row p-4 my-3 font-vazir w-full `}
+         items-start justify-center flex-row p-4 my-3 font-vazir w-full relative `}
                 >
+                  <Link href={`/list/${item.id}`} className="absolute w-full h-full  lg:hidden -translate-y-4 ">
+
+                  </Link>
                   {/* //!Top of card */}
                   {/* //!اسم و عکس */}
 

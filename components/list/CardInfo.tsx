@@ -2,8 +2,8 @@
 import React from "react";
 //,{notSelected}:{notSelected:boolean}
 type CardInfoProps =
-    | { isSelected: true; id: number }  // When isSelected is true, id is required
-    | { isSelected: false; id?: number }; // When isSelected is false, id is optional
+    | { isSelected: true; id: string }  // When isSelected is true, id is required
+    | { isSelected: false; id?: string }; // When isSelected is false, id is optional
   
 
 const CardInfo: React.FC<CardInfoProps> = ({ isSelected, id }) => {
