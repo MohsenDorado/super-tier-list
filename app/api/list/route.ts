@@ -2,7 +2,7 @@ import client from '@/app/lib/prismadb';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const count = await client.card.count();  // Add this line to get the count of all cards
+  const count = await client?.card?.count();  // Add this line to get the count of all cards
 
   const cards = await client.card.findMany()
   return NextResponse.json({ cards, count });

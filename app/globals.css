@@ -36,6 +36,13 @@
   font-weight: normal;
   
 }
+@font-face {
+  font-family:vazirthin;
+  src: url('../fonts/Vazir-Thin.ttf')format('truetype');
+  font-style: normal;
+  font-weight: normal;
+  
+}
 
 /* HTML: <div class="loader"></div> */
 .loader {

@@ -14,7 +14,8 @@ const config = {
     extend: {
       fontFamily: {
         Yekan:'Yekan',
-        vazir:'vazir'
+        vazir:'vazir',
+        vazirthin:"vazirthin"
       },
     },
   },
