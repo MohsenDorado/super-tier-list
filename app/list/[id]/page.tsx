@@ -1,4 +1,5 @@
 "use client"
+import ReactQueryProvider from '@/app/providers/ReactQueryProvider'
 import CardInfo from '@/components/list/CardInfo'
 import { useParams } from 'next/navigation'
 import React from 'react'
@@ -9,7 +10,10 @@ const ListIdPage = () => {
 
   return (
     <div className='mt-[70px]'>
+      <ReactQueryProvider>
+
       <CardInfo isSelected={true} id={parsedId.toString()}/>
+      </ReactQueryProvider>
     </div>
   )
 }

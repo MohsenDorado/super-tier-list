@@ -1,35 +1,19 @@
 "use client";
-
-import { useMemo } from "react";
 import { usePathname } from "next/navigation";
-import { PiUserCircleLight } from "react-icons/pi";
-import { FaUserCircle } from "react-icons/fa";
-import {
-  IoCheckbox,
-  IoCheckboxOutline,
-  IoHome,
-  IoHomeOutline,
-} from "react-icons/io5";
 import Link from "next/link";
-import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import useRoutes from "@/app/hooks/useRoutes";
-
 const CustomFooter = () => {
   const spring = {
     type: "ease",
-    stiffness: 100
-  }
+    stiffness: 100,
+  };
   const pathname = usePathname();
-  const MotionLink = motion(Link);
   const links = useRoutes();
 
-  const routes = useRoutes();
   return (
     <nav
-      className="    lg:hidden
-      
-
+      className="lg:hidden
         fixed 
         justify-between 
         w-full 
@@ -42,7 +26,6 @@ const CustomFooter = () => {
         dark:bg-black
         shadow-md
         translate-y-2
-     
         "
     >
       <ul className="flex w-full h-full   ">
@@ -62,9 +45,7 @@ const CustomFooter = () => {
                   ) : (
                     <link.icon className="w-6 h-6 z-10 " />
                   )}
-                  <span className=" z-10 relative ">
-                    {link.label}
-                  </span>
+                  <span className=" z-10 relative ">{link.label}</span>
                   {pathname === link.href ? (
                     <motion.div
                       transition={spring}
