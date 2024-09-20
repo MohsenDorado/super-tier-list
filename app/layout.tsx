@@ -22,16 +22,19 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className={inter.className}>
+        <ReactQueryProvider>
+
         <ThemeProvider attribute="class" defaultTheme="light">
           <Toaster
            
-          />
+           />
 
           <Header />
           {/* <TestHeader/> */}
           {children}
           <CustomFooter />
         </ThemeProvider>
+           </ReactQueryProvider>
       </body>
     </html>
   );

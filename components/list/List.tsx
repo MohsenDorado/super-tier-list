@@ -32,7 +32,7 @@ import Link from "next/link";
 function List() {
   const [isSelected, setIsSelected] = useState<number|null>(null)
   const [searchedTerm, setSearchedTerm] = useState<string>("");
-  const [cardId, setCardId] = useState<number|null>(null)
+  const [cardInfo, setCardInfo] = useState<Card|null>(null)
   const { setSortedCards, sortedCards } = useCards();
   const [deleting, setDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState<string>("");
@@ -110,15 +110,15 @@ function List() {
       card.person.toLowerCase().includes(searchedTerm.trim().toLowerCase())
     );
   }, [searchedTerm, sortedCards]);
-  const handleRenderInfo=(id:number)=>{
-    cardId!==id?(
-      setIsSelected(id),
-      setCardId(id)
+  const handleRenderInfo=(card:Card)=>{
+    cardInfo?.id!==card.id?(
+      setIsSelected(card.id),
+      setCardInfo(card)
     )
     :
     (
       setIsSelected(null),
-      setCardId(null)
+      setCardInfo(null)
     )
 
   }
@@ -158,8 +158,8 @@ function List() {
       <div className="w-full flex flex-row lg:px-[10%] max-lg:px-[5%] xl:px-[17%] pt-5">
         {filteredCards.length>0&&
         <div className="w-full bg-white max-lg:hidden mx-3">
-         {cardId===null?
-        <CardInfo isSelected={false}/> :<CardInfo isSelected={true} id={cardId.toString()}/>
+         {cardInfo===null?
+        <CardInfo isSelected={false}/> :<CardInfo isSelected={true} card={cardInfo}/>
         }
         </div>
       }
@@ -249,13 +249,13 @@ function List() {
             <AnimatePresence>
               {filteredCards.map((item) => (
                 <motion.div
-                onClick={()=>handleRenderInfo(item.id)}
+                onClick={()=>handleRenderInfo(item)}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, scale: 0 }}
                   transition={{ duration: 0.4, ease: "circInOut" }}
                   key={item.id}
-                  className={`${isSelected===item.id&& "border-2 border-slate-600"} cursor-pointer rounded-xl border border-slate-200  bg-white sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
+                  className={`${isSelected===item.id&& "border border-slate-600"} cursor-pointer rounded-xl border border-slate-200  bg-white sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
          items-start justify-center flex-row p-4 my-3 font-vazir w-full relative `}
                 >
                   <Link href={`/list/${item.id}`} className="absolute w-full h-full  lg:hidden -translate-y-4 ">
