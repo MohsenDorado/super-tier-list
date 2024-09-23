@@ -64,8 +64,10 @@ function List() {
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollY = (scrollPosition / 100) * scrollHeight;
   
-      window.scrollTo(0, scrollY);
-    }, []); // Empty array ensures it runs only on initial page load
+      window.scrollTo({
+        top: scrollY,
+        behavior: "smooth",
+      });    }, []); // Empty array ensures it runs only on initial page load
   
   
   useEffect(() => {
