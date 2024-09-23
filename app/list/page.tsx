@@ -6,7 +6,7 @@ import ListHeader from "@/components/list/ListHeader";
 import ListOrder from "@/components/list/ListOrder";
 const ListPage = () => {
   return (
-    <div className="mt-[70px] mb-[150px] bg-[#f8f9fa] min-h-[150vh] ">
+    <div className="mt-[70px] max-lg:mb-[60px] bg-[#f8f9fa] min-h-[150vh] ">
       <ReactQueryProvider>
       {/* <AddList/>
       <Count/> */}

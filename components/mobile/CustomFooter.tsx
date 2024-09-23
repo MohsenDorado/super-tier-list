@@ -25,7 +25,7 @@ const CustomFooter = () => {
         bg-white 
         dark:bg-black
         shadow-md
-        translate-y-2
+        
         "
     >
       <ul className="flex w-full h-full   ">

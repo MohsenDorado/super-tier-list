@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Avatar from "@/public/Profile_avatar_placeholder_large.png";
 import { CalendarDays, Clock, Trash } from "lucide-react";
 // import DeleteButton from "./DeleteButton";
@@ -28,20 +28,70 @@ import Count from "./Count";
 import getDateDifference from "@/app/actions/getDateDifference";
 import CardInfo from "./CardInfo";
 import Link from "next/link";
+import { useSearch } from "@/store/useSearch";
+import { useScrolling } from "@/store/useScrolling";
+import { useRouter } from "next/navigation";
 
 function List() {
-  const [isSelected, setIsSelected] = useState<number|null>(null)
-  const [searchedTerm, setSearchedTerm] = useState<string>("");
-  const [cardInfo, setCardInfo] = useState<Card|null>(null)
+  const [isSelected, setIsSelected] = useState<number | null>(null);
+  const [cardId, setCardId] = useState<number | null>(null);
   const { setSortedCards, sortedCards } = useCards();
   const [deleting, setDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery<CardType>({
     queryKey: ["listData"],
     queryFn: () => fetch("api/list").then((res) => res.json()),
   });
+  //!search logic..............................................
+  const { searchedText, setSearchedText } = useSearch();
+  //!ref logic.................................................
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollPosition, setScrollPosition } = useScrolling();
+  const router = useRouter();
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const scrolled=document.body.scrollTop||document.documentElement.scrollTop;
+    const height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    setScrollPosition(Math.floor((scrolled/height)*100))
+    console.log("scrollllllllll",scrollPosition);
+    
+    }, [       document.documentElement.scrollTop,
+    ])
+    useEffect(() => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollY = (scrollPosition / 100) * scrollHeight;
+  
+      window.scrollTo(0, scrollY);
+    }, []); // Empty array ensures it runs only on initial page load
+  
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    // just trigger this so that the initial state
+    // is updated as soon as the component is mounted
+    // related: https://stackoverflow.com/a/63408216
+    handleScroll();
+    // console.log(
+    //   document.body.scrollTop,
+    //   document.documentElement.scrollTop,
+    //   document.documentElement.scrollHeight,
+    //   document.documentElement.clientHeight
+    // );
+   
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollY]);
+  
   //! order by the creation date ........................................
   const sortOrder = useOrder((state) => state.sortOrder);
   const sortCategory = useOrder((state) => state.sortCategory);
@@ -103,44 +153,35 @@ function List() {
   //!filter the sorted list.......................................................
 
   const filteredCards = useMemo(() => {
-    if (!searchedTerm.trim()) {
+    if (!searchedText.trim()) {
       return sortedCards; // If the search term is empty, return all cards
     }
     return sortedCards.filter((card) =>
-      card.person.toLowerCase().includes(searchedTerm.trim().toLowerCase())
+      card.person.toLowerCase().includes(searchedText.trim().toLowerCase())
     );
-  }, [searchedTerm, sortedCards]);
-  const handleRenderInfo=(card:Card)=>{
-    cardInfo?.id!==card.id?(
-      setIsSelected(card.id),
-      setCardInfo(card)
-    )
-    :
-    (
-      setIsSelected(null),
-      setCardInfo(null)
-    )
-
-  }
+  }, [searchedText, sortedCards]);
+  const handleRenderInfo = (id: number) => {
+    cardId !== id
+      ? (setIsSelected(id), setCardId(id))
+      : (setIsSelected(null), setCardId(null));
+  };
   //!returnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
   return (
-    <div className="flex flex-col  dark:text-white  ">
+    <div ref={ref} className="flex flex-col  dark:text-white  ">
       <div className="bg-white w-full flex items-center justify-center flex-col lg:px-[10%] max-lg:px-[5%] xl:px-[17%] border-b">
         <div className="flex items-center border justify-center rounded-lg  w-full  relative focus:border-slate-400 text-sm">
           <input
             style={{ direction: "rtl" }}
             type="text"
-            value={searchedTerm}
-            onChange={(event) => setSearchedTerm(event.target.value)}
+            value={searchedText}
+            onChange={(event) => setSearchedText(event.target.value)}
             className="font-vazir w-full mr-[50px] ml-[25px] py-2 text-right focus:border-slate-50 focus:outline-none "
             placeholder="...جستجو"
           />
           <FaSearch className="absolute right-[20px] text-black dark:text-white" />
         </div>
         <div className="w-full flex items-center justify-end my-1  ">
-          <div className="my-3">
-            <ListOrder />
-          </div>
+          <div className="my-3">{/* <ListOrder /> */}</div>
         </div>
 
         {/* <div className="flex items-center justify-center flex-row w-full">
@@ -155,17 +196,27 @@ function List() {
           فردی با این نام وجود ندارد
         </div>
       )}
-      <div className="w-full flex flex-row lg:px-[10%] max-lg:px-[5%] xl:px-[17%] pt-5">
-        {filteredCards.length>0&&
-        <div className="w-full bg-white max-lg:hidden mx-3">
-         {cardInfo===null?
-        <CardInfo isSelected={false}/> :<CardInfo isSelected={true} card={cardInfo}/>
-        }
-        </div>
-      }
-        <div className="flex items-center justify-center w-full flex-col pt-10 relative">
-        
-          {/* <Count/> */}
+      <div className="w-full flex flex-row  lg:px-[10%] max-lg:px-[5%] xl:px-[17%] pt-5 h-full ">
+        {filteredCards.length > 0 && (
+          <div className="w-full flex-1 bg-white max-lg:hidden mx-3 h-screen overflow-y-scroll scrollbar-thin sticky top-[70px]">
+            {cardId === null ? (
+              <CardInfo isSelected={false} />
+            ) : (
+              <CardInfo isSelected={true} id={cardId.toString()} />
+            )}
+          </div>
+        )}
+        <div className="flex-1 items-center justify-center w-full flex-col pt-10 relative">
+          {!isLoading && filteredCards.length > 0 && (
+            <div className="flex items-center justify-between w-full ">
+              <div className="w-full flex items-center justify-start">
+                <ListOrder />
+              </div>
+              <div className=" w-full  flex items-center justify-end">
+                <Count />
+              </div>
+            </div>
+          )}
           <div className=" grid grid-cols-1 gap-4 w-full  ">
             {/* <Modal
               deletingTodo={mutation.isPending}
@@ -249,18 +300,21 @@ function List() {
             <AnimatePresence>
               {filteredCards.map((item) => (
                 <motion.div
-                onClick={()=>handleRenderInfo(item)}
+                  onClick={() => handleRenderInfo(item.id)}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, scale: 0 }}
                   transition={{ duration: 0.4, ease: "circInOut" }}
                   key={item.id}
-                  className={`${isSelected===item.id&& "border border-slate-600"} cursor-pointer rounded-xl border border-slate-200  bg-white sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
-         items-start justify-center flex-row p-4 my-3 font-vazir w-full relative `}
+                  className={`${
+                    isSelected === item.id && "border border-slate-600"
+                  } cursor-pointer rounded-xl border border-slate-200  bg-white sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
+         items-start justify-center flex-row p-4 my-1 font-vazir w-full relative `}
                 >
-                  <Link href={`/list/${item.id}`} className="absolute w-full h-full  lg:hidden -translate-y-4 ">
-
-                  </Link>
+                  <Link
+                    href={`/list/${item.id}`}
+                    className="absolute w-full h-full  lg:hidden -translate-y-4 "
+                  ></Link>
                   {/* //!Top of card */}
                   {/* //!اسم و عکس */}
 
@@ -283,15 +337,29 @@ function List() {
                       </p>
                       <p>: اتمام مهلت</p>
                     </div>
-                    <div className="text-right pt-[50px] gap-1  text-[13px]  font-vazirthin  flex w-full items-center justify-end    ">
-                      <p>روز پیش</p>
+                    <div className="text-right pt-[50px] gap-1  text-[13px]  font-vazirthin  flex w-full items-center justify-end">
                       <p>
-                        {getPersianNumbers(
-                          getDateDifference(
-                            getCorrectDateTypeFromPrisma(item.createdAt)
-                          ).toString()
-                        )}
+                        {getDateDifference(
+                          getCorrectDateTypeFromPrisma(item.createdAt)
+                        ) === 0
+                          ? "امروز" // "Today" in Persian
+                          : getDateDifference(
+                              getCorrectDateTypeFromPrisma(item.createdAt)
+                            ) === 1
+                          ? "دیروز" // "Yesterday" in Persian
+                          : "روز پیش"}
                       </p>
+                      {getDateDifference(
+                        getCorrectDateTypeFromPrisma(item.createdAt)
+                      ) > 1 && (
+                        <p>
+                          {getPersianNumbers(
+                            getDateDifference(
+                              getCorrectDateTypeFromPrisma(item.createdAt)
+                            ).toString()
+                          )}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="relative w-14 h-14 rounded-md overflow-hidden flex-shrink-0   ">

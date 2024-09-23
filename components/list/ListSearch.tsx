@@ -1,27 +1,28 @@
 "use client"
 import { useCards } from '@/store/useCards';
+import { useSearch } from '@/store/useSearch';
 import React, { useEffect, useMemo, useState } from 'react'
 
 const ListSearch = () => {
   const{sortedCards,setSortedCards,setFilteredCards,filteredCards}=useCards();
-  
-  const [searchedTerm, setSearchedTerm] = useState<string>("")
+  const{searchedText,setSearchedText}=useSearch();
+
   const tempFilteredCards = useMemo(() => {
-    if (!searchedTerm.trim()) {
+    if (!searchedText.trim()) {
       return sortedCards; // If the search term is empty, return all cards
     }
     return sortedCards.filter((card) =>
-      card.person.toLowerCase().includes(searchedTerm.trim().toLowerCase())
+      card.person.toLowerCase().includes(searchedText.trim().toLowerCase())
     );
-  }, [searchedTerm, sortedCards]);
+  }, [searchedText, sortedCards]);
 
 useEffect(() => {
   setFilteredCards(tempFilteredCards)
-}, [searchedTerm])
+}, [searchedText])
 
   return (
     <div>
-        <input type="text" value={searchedTerm} onChange={(event)=>{setSearchedTerm(event.target.value)}}
+        <input type="text" value={searchedText} onChange={(event)=>{setSearchedText(event.target.value)}}
         className='w-full border h-[100px]'
         />
     </div>
