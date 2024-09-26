@@ -57,7 +57,7 @@ const handleSort=(order:"asc"|"desc",sortingCategory:SortCategoriesType,sortingN
     <div className="w-full bg-transparent  gap-x-4 flex-row font-vazir">
       <button
         disabled={loading}
-        className="rounded-full text-sm border  px-4 py-2 bg-transparent  bg-black flex items-center justify-center gap-1 relative h-[50px]"
+        className="rounded-full text-sm border-[2px] dark:border-slate-200 px-4 py-2 bg-transparent border-black  bg-black flex items-center justify-center gap-1 relative h-[50px]"
         onClick={() => {
           setIsOpen(!isOpen);
         }}

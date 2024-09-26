@@ -31,6 +31,7 @@ import Link from "next/link";
 import { useSearch } from "@/store/useSearch";
 import { useScrolling } from "@/store/useScrolling";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 function List() {
   const [isSelected, setIsSelected] = useState<number | null>(null);
@@ -56,7 +57,7 @@ function List() {
     const scrolled=document.body.scrollTop||document.documentElement.scrollTop;
     const height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
     setScrollPosition(Math.floor((scrolled/height)*100))
-    console.log("scrollllllllll",scrollPosition);
+    // console.log("scrollllllllll",scrollPosition);
     
     }, [       document.documentElement.scrollTop,
     ])
@@ -67,6 +68,7 @@ function List() {
       window.scrollTo({
         top: scrollY,
         behavior: "smooth",
+        
       });    }, []); // Empty array ensures it runs only on initial page load
   
   
@@ -170,22 +172,18 @@ function List() {
   //!returnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
   return (
     <div ref={ref} className="flex flex-col  dark:text-white  ">
-      <div className="bg-white w-full flex items-center justify-center flex-col lg:px-[10%] max-lg:px-[5%] xl:px-[17%] border-b">
-        <div className="flex items-center border justify-center rounded-lg  w-full  relative focus:border-slate-400 text-sm">
+      <div className="bg-white h-full dark:bg-black w-full flex items-center justify-center flex-col lg:px-[10%] max-lg:px-[5%] xl:px-[17%] ">
+        <div className="my-5 flex h-full items-center border justify-center rounded-lg  w-full  relative focus:border-slate-400 text-sm">
           <input
             style={{ direction: "rtl" }}
             type="text"
             value={searchedText}
             onChange={(event) => setSearchedText(event.target.value)}
-            className="font-vazir w-full mr-[50px] ml-[25px] py-2 text-right focus:border-slate-50 focus:outline-none "
-            placeholder="...جستجو"
+            className="flex items-center justify-center font-vazir w-full mr-[50px] ml-[25px] py-2 text-right focus:border-slate-50 focus:outline-none bg-white dark:bg-black "
+            placeholder="جستجو..."
           />
           <FaSearch className="absolute right-[20px] text-black dark:text-white" />
         </div>
-        <div className="w-full flex items-center justify-end my-1  ">
-          <div className="my-3">{/* <ListOrder /> */}</div>
-        </div>
-
         {/* <div className="flex items-center justify-center flex-row w-full">
         <input type="text" value={searchedTerm} onChange={(event)=>{setSearchedTerm(event.target.value)}}
         className='w-[100%] border h-[100px] lg:mx-[17%] px-[50px] max-sm:px-[25px]'
@@ -199,8 +197,9 @@ function List() {
         </div>
       )}
       <div className="w-full flex flex-row  lg:px-[10%] max-lg:px-[5%] xl:px-[17%] pt-5 h-full ">
+        {/*//! The left side */}
         {filteredCards.length > 0 && (
-          <div className="w-full flex-1 bg-white max-lg:hidden mx-3 h-screen overflow-y-scroll scrollbar-thin sticky top-[70px]">
+          <div className="w-full flex-1 bg-white dark:bg-slate-900 max-lg:hidden mx-3 h-screen overflow-y-scroll scrollbar-thin sticky top-[70px]">
             {cardId === null ? (
               <CardInfo isSelected={false} />
             ) : (
@@ -208,14 +207,13 @@ function List() {
             )}
           </div>
         )}
-        <div className="flex-1 items-center justify-center w-full flex-col pt-10 relative">
+        <div className="flex-1 items-center justify-center w-full flex-col pt-1 relative">
           {!isLoading && filteredCards.length > 0 && (
             <div className="flex items-center justify-between w-full ">
               <div className="w-full flex items-center justify-start">
                 <ListOrder />
               </div>
               <div className=" w-full  flex items-center justify-end">
-                <Count />
               </div>
             </div>
           )}
@@ -306,12 +304,16 @@ function List() {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, scale: 0 }}
-                  transition={{ duration: 0.4, ease: "circInOut" }}
+                  transition={{ duration: 0.2, ease: "circInOut" }}
                   key={item.id}
-                  className={`${
-                    isSelected === item.id && "border border-slate-600"
-                  } cursor-pointer rounded-xl border border-slate-200  bg-white sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex
-         items-start justify-center flex-row p-4 my-1 font-vazir w-full relative `}
+                  className={cn(
+                    'cursor-pointer rounded-xl border bg-white sm:hover:brightness-90 dark:bg-slate-800 transition-all duration-100 flex items-start justify-center flex-row p-4 my-1 font-vazir w-full relative',
+                    {
+                      'border-slate-200 dark:border-slate-800': isSelected !== item.id,
+                      'border-slate-600 dark:border-white': isSelected === item.id,
+                    }
+                  )}
+           
                 >
                   <Link
                     href={`/list/${item.id}`}

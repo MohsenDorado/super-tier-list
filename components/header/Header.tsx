@@ -17,7 +17,7 @@ export default function Header() {
   const routes = useRoutes();
   const router = useRouter();
   return (
-    <header className="border-b-2 border-[#dde1e6]  font-Yekan px-[50px] z-50 lg:px-[17%] lg:justify-between max-sm:px-2 fixed h-[60px] top-0 left-0 w-full dark:bg-black bg-white  backdrop-blur-md  flex items-center justify-between ">
+    <header className="border-b-2 border-[#dde1e6] dark:border-blue-800  font-Yekan px-[50px] z-50 lg:px-[17%] lg:justify-between max-sm:px-2 fixed h-[60px] top-0 left-0 w-full dark:bg-black bg-white  backdrop-blur-md  flex items-center justify-between ">
       <h1
         className="cursor-pointer text-3xl"
         onClick={() => {
@@ -28,7 +28,7 @@ export default function Header() {
       </h1>
       <div className="flex items-center justify-center gap-4">
         <ThemeToggle />
-        <nav className="flex items-center justify-center ">
+        <nav className="flex items-center justify-center  ">
           <ul className="flex items-center justify-center gap-5  max-lg:hidden ">
             <AnimatePresence>
               {routes.map((route) => (
@@ -40,7 +40,7 @@ export default function Header() {
                 >
                   <Link className="text-sm text-slate-700 " href={route.href}>
               
-                    <span className="z-10  p-2 flex items-center justify-center">
+                    <span className="z-10  p-2 flex items-center justify-center dark:text-white">
                       {/* {route.children && <IoIosArrowDown />} */}
                       {route.label !== "Home" && route.label}
                     </span>
