@@ -12,6 +12,10 @@ const config = {
   theme: {
   
     extend: {
+
+      direction: {
+        rtl: 'rtl',
+      },
       fontFamily: {
         Yekan:'Yekan',
         vazir:'vazir',

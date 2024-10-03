@@ -19,12 +19,13 @@ export default function Header() {
   return (
     <header className="border-b-2 border-[#dde1e6] dark:border-blue-800  font-Yekan px-[50px] z-50 lg:px-[17%] lg:justify-between max-sm:px-2 fixed h-[60px] top-0 left-0 w-full dark:bg-black bg-white  backdrop-blur-md  flex items-center justify-between ">
       <h1
-        className="cursor-pointer text-3xl"
+        className="cursor-pointer text-3xl font-Yekan font-extrabold text-blue-700 dark:text-blue-300"
         onClick={() => {
           router.push("/");
         }}
       >
-        Logo
+        
+        کارت <span className="text-black dark:text-white">وام</span>
       </h1>
       <div className="flex items-center justify-center gap-4">
         <ThemeToggle />

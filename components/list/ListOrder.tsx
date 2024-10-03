@@ -57,7 +57,7 @@ const handleSort=(order:"asc"|"desc",sortingCategory:SortCategoriesType,sortingN
     <div className="w-full bg-transparent  gap-x-4 flex-row font-vazir">
       <button
         disabled={loading}
-        className="rounded-full text-sm border-[2px] dark:border-slate-200 px-4 py-2 bg-transparent border-black  bg-black flex items-center justify-center gap-1 relative h-[50px]"
+        className="rounded-full text-sm  dark:border-slate-200  bg-transparent border-black  bg-black flex items-center justify-center gap-1 relative h-[50px]"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
@@ -74,14 +74,14 @@ const handleSort=(order:"asc"|"desc",sortingCategory:SortCategoriesType,sortingN
         {isOpen && (
           <div
             ref={modalRef}
-            className="text-sm z-50 cursor-default bg-slate-200 dark:bg-slate-900 rounded-xl absolute w-full my-3 py-1  top-0 translate-y-[50px]  flex-col   flex items-center justify-center gap-5"
+            className="text-sm z-50 cursor-default border-2 border-black dark:border-white bg-white dark:bg-blue-950 shadow-lg rounded-md absolute w-[200px] my-3 py-1 pb-4  top-0 translate-y-[35px]  flex-col   flex items-center justify-center gap-5"
           >
             {
               MemberCardOrderQueries.map((item)=>(
                 <button
                 key={item.id}
                 onClick={()=>handleSort(item.order,item.orderCategory,item.name)}
-                className="px-4 py-2  w-full  mx-4  flex  items-center  justify-end hover:brightness-90 text-sm font-light dark:sm:hover:bg-slate-800 "
+                className="text-right lg:hover:bg-slate-100  lg:hover:dark:bg-slate-800 px-4 py-2  w-full  mx-4  flex  items-center  justify-end hover:brightness-90 text-sm font-light dark:sm:hover:bg-slate-800 "
                 >
                   {item.name}
                 </button>

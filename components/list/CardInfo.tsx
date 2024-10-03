@@ -77,10 +77,10 @@ const CardInfo: React.FC<CardInfoProps> = ({ isSelected, id }) => {
     setSelectedComponet(selected)
   }
   return (
-    <div className="flex items-center  flex-col w-full h-full bg-white dark:bg-slate-900 px-[15px] ">
+    <div className="flex items-center  flex-col w-full   dark:bg-slate-800 px-[15px] ">
       {cardData && (
-        <div className="h-full w-full">
-          <div className="sticky top-0 max-lg:top-[60px] bg-white dark:bg-slate-900 flex items-center justify-between flex-col w-full text-right  ">
+        <div className=" w-full">
+          <div className="sticky top-0 max-lg:top-[60px] bg-white dark:bg-slate-800 flex items-center justify-between flex-col w-full text-right  ">
             <div className="flex items-center justify-center flex-row w-full">
               <Link
                 className="lg:hidden flex   text-blue-500 font-vazir"
@@ -113,23 +113,23 @@ const CardInfo: React.FC<CardInfoProps> = ({ isSelected, id }) => {
             atque! Error, quis. Modi laborum cupiditate, fugiat optio magni quae
             perferendis dolores!
           </div>
-          <div className="sticky top-[50px] max-lg:top-[110px] bg-white border-b ">
-            <div className="flex items-center justify-center w-full text-[15px] font-vazir">
+          <div className="sticky top-[50px] max-lg:top-[110px] bg-white dark:bg-slate-800 mt-3">
+            <div className="flex items-center justify-center w-full text-[15px] font-vazir ">
               {detailsRoutes.map((route)=>(
                 <div
-                className="relative  flex items-center justify-between w-full "
+                className="relative  flex items-center justify-between w-full  "
                 key={route.selected}
                 >
 
                <button
                onClick={()=>handleChangeComponent(route.selected)}
-               className="p-3 bg-transparent w-full bg-red-500"
+               className="p-3 bg-transparent w-full "
                >
                 {route.label}
                </button>
                {
                 selectedComponet===route.selected&&
-               <span className="w-full h-[2px] bg-black absolute bottom-0 z-50">
+               <span className="w-full h-[4px] rounded-full bg-blue-500 absolute bottom-0 z-50">
 
 
 </span>

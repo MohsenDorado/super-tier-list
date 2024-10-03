@@ -171,9 +171,9 @@ function List() {
   };
   //!returnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
   return (
-    <div ref={ref} className="flex flex-col  dark:text-white  ">
-      <div className="bg-white h-full dark:bg-black w-full flex items-center justify-center flex-col lg:px-[10%] max-lg:px-[5%] xl:px-[17%] ">
-        <div className="my-5 flex h-full items-center border justify-center rounded-lg  w-full  relative focus:border-slate-400 text-sm">
+    <div ref={ref} className="flex flex-col  dark:text-white   ">
+      <div className="bg-white  h-full  dark:bg-black w-full flex items-center justify-center flex-col lg:px-[10%] max-lg:px-[5%] xl:px-[17%] ">
+        <div className="my-5 flex h-full items-center border justify-center  rounded-lg relative   w-full focus:border-slate-400 text-sm">
           <input
             style={{ direction: "rtl" }}
             type="text"
@@ -196,10 +196,10 @@ function List() {
           فردی با این نام وجود ندارد
         </div>
       )}
-      <div className="w-full flex flex-row  lg:px-[10%] max-lg:px-[5%] xl:px-[17%] pt-5 h-full ">
+      <div className="w-full flex flex-row  lg:px-[10%] max-lg:px-[5%] xl:px-[17%] pt-5 h-full  ">
         {/*//! The left side */}
         {filteredCards.length > 0 && (
-          <div className="w-full flex-1 bg-white dark:bg-slate-900 max-lg:hidden mx-3 h-screen overflow-y-scroll scrollbar-thin sticky top-[70px]">
+          <div className="w-full flex-1 bg-white dark:bg-slate-800 max-lg:hidden mx-3 h-[100vh] overflow-y-auto scrollbar-thin sticky top-[70px]">
             {cardId === null ? (
               <CardInfo isSelected={false} />
             ) : (
