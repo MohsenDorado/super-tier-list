@@ -1,7 +1,8 @@
-"use server";
+"use client";
 import AdminList from "@/components/admin/AdminList";
 import React from "react";
 import ReactQueryProvider from "../providers/ReactQueryProvider";
+import Test from "@/components/Test";
 
 const ContactPage = () => {
 
@@ -9,7 +10,10 @@ const ContactPage = () => {
     <div className=" mt-[70px] mb-[150px]">
       <ReactQueryProvider>
 
-      <AdminList/>
+
+
+      <Test/>
+      {/* <AdminList/> */}
       </ReactQueryProvider>
     </div>
   );

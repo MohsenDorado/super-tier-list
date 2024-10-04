@@ -11,6 +11,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import DetailsComponent from "./DetailsComponent";
 import OtherCards from "./OtherCards";
+import Cards from "./Cards";
 //,{notSelected}:{notSelected:boolean}
 type CardInfoProps =
   | { isSelected: true; id: string } // When isSelected is true, id is required
@@ -148,7 +149,7 @@ const CardInfo: React.FC<CardInfoProps> = ({ isSelected, id }) => {
               <DetailsComponent data={cardData} />
             )}
             {selectedComponet === "others" && (
-              <OtherCards id={cardData.id}/>
+              <Cards id={cardData.id} admin={false}/>
             )}
             {selectedComponet === "personal" && "personals"}
           </div>
